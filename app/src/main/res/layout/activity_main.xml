@@ -7,17 +7,17 @@
     tools:context=".MainActivity">
 
     <!-- Vue avec fond bleu qui occupe 25% de la hauteur de l'écran -->
+
     <View
         android:id="@+id/blueView"
-        android:layout_width="0dp"
+        android:layout_width="411dp"
         android:layout_height="0dp"
         android:background="@android:color/holo_blue_light"
-        app:layout_constraintBottom_toTopOf="@+id/whiteView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHeight_percent="0.15" />
 
     <!-- Vue avec fond blanc qui occupe 75% de la hauteur de l'écran -->
+
+
     <View
         android:id="@+id/whiteView"
         android:layout_width="0dp"
@@ -31,29 +31,38 @@
     <!-- Ajoutez ici vos autres vues -->
     <TextView
 
-        android:fontFamily="@font/inter_font"
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_font"
         android:text="CHRΩNOS "
         android:textColor="@android:color/white"
         android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/blueView"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/blueView"
         app:layout_constraintStart_toStartOf="@+id/blueView"
         app:layout_constraintTop_toTopOf="@+id/blueView" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/oui"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-104dp" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="104dp"
+        android:backgroundTint="@android:color/holo_blue_light"
         android:onClick="onButtonClick"
-        android:text="Button"
+        android:text="Page suivante"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.459"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/whiteView"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/whiteView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

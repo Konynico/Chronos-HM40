@@ -13,7 +13,8 @@
         app:layout_constraintBottom_toTopOf="@+id/whiteView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHeight_percent="0.15" />
+        app:layout_constraintHeight_percent="0.15"
+        tools:ignore="UnknownIdInLayout" />
 
     <TextView
         android:fontFamily="@font/inter_font"
