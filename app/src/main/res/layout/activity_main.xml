@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="104dp"
         android:backgroundTint="@android:color/holo_blue_light"
-        android:onClick="onButtonClick"
+        android:onClick="onButtonClickMain"
         android:text="Page suivante"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/whiteView"

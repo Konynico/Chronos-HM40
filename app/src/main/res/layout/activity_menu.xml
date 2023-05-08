@@ -54,5 +54,14 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="50dp" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onButtonClickMenu"
+        android:text="Page suivante"
+        tools:layout_editor_absoluteX="165dp"
+        tools:layout_editor_absoluteY="182dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

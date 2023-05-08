@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void onButtonClick(View view) {
+    public void onButtonClickMain(View view) {
         // Créer une nouvelle intention pour l'activité que vous souhaitez ouvrir
         Intent intent = new Intent(this, Menu.class);
 
