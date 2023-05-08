@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".Menu">
 
-    <include layout="@layout/bandeau" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/bandeau" />
 
     <!-- Vue avec fond bleu qui occupe 25% de la hauteur de l'écran -->
     <View
@@ -60,8 +62,12 @@
         android:layout_height="wrap_content"
         android:onClick="onButtonClickMenu"
         android:text="Page suivante"
-        tools:layout_editor_absoluteX="165dp"
-        tools:layout_editor_absoluteY="182dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/include"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
