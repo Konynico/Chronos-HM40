@@ -6,18 +6,23 @@ import android.widget.CalendarView;
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public class Calendar extends AppCompatActivity {
 
     CalendarView calendarView;
 
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES); //wtf
+
 
         calendarView = findViewById(R.id.calendarView);
-
     }
+
 
     public void onButtonClickCalendar(View view) {
         // Créer une nouvelle intention pour l'activité que vous souhaitez ouvrir

@@ -98,11 +98,8 @@
                 android:id="@+id/addEventButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="addEventToCalendar"
                 android:text="Ajouter l'événement" />
         </LinearLayout>
     </ScrollView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
