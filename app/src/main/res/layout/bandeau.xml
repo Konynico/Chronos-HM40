@@ -17,6 +17,7 @@
         tools:ignore="UnknownIdInLayout" />
 
     <TextView
+        android:onClick="onChronosClick"
         android:fontFamily="@font/inter_font"
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
