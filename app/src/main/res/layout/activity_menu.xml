@@ -11,42 +11,6 @@
         layout="@layout/bandeau" />
 
     <!-- Vue avec fond bleu qui occupe 25% de la hauteur de l'écran -->
-    <View
-        android:id="@+id/blueView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@android:color/holo_blue_light"
-        app:layout_constraintBottom_toTopOf="@+id/whiteView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHeight_percent="0.15" />
-
-    <!-- Vue avec fond blanc qui occupe 75% de la hauteur de l'écran -->
-    <View
-        android:id="@+id/whiteView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blueView" />
-
-    <!-- Ajoutez ici vos autres vues -->
-    <TextView
-
-        android:fontFamily="@font/inter_font"
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CHRΩNOS "
-        android:textColor="@android:color/white"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/blueView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/blueView"
-        app:layout_constraintTop_toTopOf="@+id/blueView" />
 
     <ImageView
         android:id="@+id/imageView"

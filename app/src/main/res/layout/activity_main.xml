@@ -17,32 +17,9 @@
 
     <!-- Vue avec fond blanc qui occupe 75% de la hauteur de l'écran -->
 
-
-    <View
-        android:id="@+id/whiteView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blueView" />
-
-    <!-- Ajoutez ici vos autres vues -->
-    <TextView
-
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_font"
-        android:text="CHRΩNOS "
-        android:textColor="@android:color/white"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/blueView"
-        app:layout_constraintEnd_toEndOf="@+id/blueView"
-        app:layout_constraintStart_toStartOf="@+id/blueView"
-        app:layout_constraintTop_toTopOf="@+id/blueView" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/bandeau" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -50,7 +27,9 @@
         android:layout_height="wrap_content"
         android:src="@drawable/oui"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-104dp" />
+        tools:layout_editor_absoluteY="-104dp"
+
+        />
 
     <Button
         android:id="@+id/button"
@@ -60,9 +39,11 @@
         android:backgroundTint="@android:color/holo_blue_light"
         android:onClick="onButtonClickMain"
         android:text="Page suivante"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/whiteView"
+        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="@+id/whiteView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/include"
+        app:layout_constraintVertical_bias="1.0"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
