@@ -72,6 +72,7 @@ public class CreateEvenement extends AppCompatActivity {
                 // Ajout de l'événement à l'agenda
                 //addEventToCalendar(startMillis, endMillis, title, description);
             }
+
         });
     }
 

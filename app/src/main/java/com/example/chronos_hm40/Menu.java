@@ -24,6 +24,19 @@ public class Menu extends AppCompatActivity {
         //finish();
     }
 
+    public void onButtonClickTodo(View view) {
+        // Créer une nouvelle intention pour l'activité que vous souhaitez ouvrir
+        Intent intent = new Intent(this, TodoList.class);
+
+        // Démarrer l'activité en utilisant cette intention
+        startActivity(intent);
+        //finish();
+    }
+    public  void onChronoClick(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 
 }
 
