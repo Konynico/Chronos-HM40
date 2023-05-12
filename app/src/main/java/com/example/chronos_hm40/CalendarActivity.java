@@ -46,11 +46,19 @@ public class CalendarActivity extends AppCompatActivity {
                 Calendar selectedDate = Calendar.getInstance();
                 selectedDate.set(year, month, dayOfMonth);
 
+                // Créer une instance de calendrier pour la date sélectionnée
+                selectedDate.set(year, month, dayOfMonth, 0, 0, 0); // Définir l'heure de début à 00:00:00
+                selectedDate.set(Calendar.MILLISECOND, 0); // Définir les millisecondes à zéro pour éviter les problèmes de précision
+
                 // Définir les paramètres de requête pour récupérer les événements à cette date
-                String selection = "(" + CalendarContract.Events.DTSTART + ">= ? AND " + CalendarContract.Events.DTSTART + "<= ?)";
+                long startOfDay = selectedDate.getTimeInMillis();
+                selectedDate.add(Calendar.DAY_OF_MONTH, 1);
+                long endOfDay = selectedDate.getTimeInMillis();
+                String selection = "(" + CalendarContract.Events.DTSTART + ">= ? AND " + CalendarContract.Events.DTSTART + "< ?)";
+                String[] selectionArgs = new String[] { Long.toString(startOfDay), Long.toString(endOfDay) };
 
                 // Effectuer la requête pour récupérer les événements à cette date
-                Cursor cursor = getContentResolver().query(CalendarContract.Events.CONTENT_URI, null, selection, null);
+                Cursor cursor = getContentResolver().query(CalendarContract.Events.CONTENT_URI, null, selection, selectionArgs, null);
 
                 // Afficher les événements à cette date dans la console
                 while (cursor.moveToNext()) {
