@@ -17,7 +17,7 @@
             android:name=".CreateEvenement"
             android:exported="false" />
         <activity
-            android:name=".Calendar"
+            android:name=".CalendarActivity"
             android:exported="true"/>
         <activity
             android:name=".Menu"
