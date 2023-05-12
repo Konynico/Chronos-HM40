@@ -70,7 +70,9 @@ public class CreateEvenement extends AppCompatActivity {
                 long endMillis = endCalendar.getTimeInMillis();
 
                 // Ajout de l'événement à l'agenda
-                //addEventToCalendar(startMillis, endMillis, title, description);
+                addEventToCalendar(startMillis, endMillis, title, description);
+
+                finish();
             }
 
         });
@@ -92,12 +94,6 @@ public class CreateEvenement extends AppCompatActivity {
         values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
         Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
         long eventID = Long.parseLong(uri.getLastPathSegment());
-
-        // Ouvrir l'application de calendrier
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        Uri calendarUri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventID);
-        intent.setData(calendarUri);
-        startActivity(intent);
     }
 
 }
