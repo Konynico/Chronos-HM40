@@ -70,7 +70,7 @@ public class CreateEvenement extends AppCompatActivity {
                 long endMillis = endCalendar.getTimeInMillis();
 
                 // Ajout de l'événement à l'agenda
-                addEventToCalendar(startMillis, endMillis, title, description);
+                //addEventToCalendar(startMillis, endMillis, title, description);
             }
         });
     }
@@ -98,4 +98,5 @@ public class CreateEvenement extends AppCompatActivity {
         intent.setData(calendarUri);
         startActivity(intent);
     }
+
 }

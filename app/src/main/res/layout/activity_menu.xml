@@ -12,14 +12,6 @@
 
     <!-- Vue avec fond bleu qui occupe 25% de la hauteur de l'écran -->
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/oui1"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="50dp" />
-
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"

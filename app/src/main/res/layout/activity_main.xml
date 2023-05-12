@@ -21,16 +21,6 @@
         android:id="@+id/include"
         layout="@layout/bandeau" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/oui"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-104dp"
-
-        />
-
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
