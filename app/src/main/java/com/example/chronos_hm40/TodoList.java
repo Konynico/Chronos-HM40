@@ -1,13 +1,15 @@
 package com.example.chronos_hm40;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.apache.commons.io.FileUtils;
 
@@ -33,17 +35,34 @@ public class TodoList extends AppCompatActivity {
         setupListViewListener();
 
     }
-
-
     private void setupListViewListener() {
         lvItems.setOnItemLongClickListener(
                 new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> adapter,
                                                    View item, int pos, long id) {
-                        items.remove(pos);
-                        itemsAdapter.notifyDataSetChanged();
-                        writeItems();
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(TodoList.this);
+                        builder.setTitle("Confirmation");
+                        builder.setMessage("Êtes-vous sûr de vouloir supprimer cet élément de votre todo liste ?");
+                        builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                items.remove(pos);
+                                itemsAdapter.notifyDataSetChanged();
+                                writeItems();
+                            }
+                        });
+                        builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // Ne faites rien ici - fermez simplement le popup
+                            }
+                        });
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+
                         return true;
                     }
 
@@ -52,8 +71,12 @@ public class TodoList extends AppCompatActivity {
     public void onAddItem(View v) {
         EditText etNewItem = (EditText) findViewById(R.id.etNewItem);
         String itemText = etNewItem.getText().toString();
+        EditText etNewDate = (EditText) findViewById(R.id.etNewDate);
+        itemText = itemText + "\n" + etNewDate.getText().toString();
+
         itemsAdapter.add(itemText);
         etNewItem.setText("");
+        etNewDate.setText("");
         writeItems();
     }
 
