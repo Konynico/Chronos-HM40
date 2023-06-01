@@ -98,7 +98,8 @@
                 android:id="@+id/addEventButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ajouter l'événement" />
+                android:text="Ajouter l'événement"
+                android:onClick="onSaveButtonClick" />
         </LinearLayout>
     </ScrollView>
 
