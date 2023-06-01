@@ -1,99 +1,75 @@
 package com.example.chronos_hm40;
 
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.RadioGroup;
-import java.util.Calendar;
-import java.util.TimeZone;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.chronos_hm40.R;
+
+import java.util.Calendar;
+import java.util.TimeZone;
+
 public class CreateEvenement extends AppCompatActivity {
 
-    private EditText eventTitleEditText;
-    private EditText eventDescriptionEditText;
-    private DatePicker eventStartDatePicker;
-    private DatePicker eventEndDatePicker;
-    private RadioGroup colorRadioGroup;
-    private Button addEventButton;
+    private long calendarId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evenement);
 
-        eventTitleEditText = findViewById(R.id.eventTitle);
-        eventDescriptionEditText = findViewById(R.id.eventDescription);
-        eventStartDatePicker = findViewById(R.id.eventStartDate);
-        eventEndDatePicker = findViewById(R.id.eventEndDate);
-        colorRadioGroup = findViewById(R.id.colorRadioGroup);
-        addEventButton = findViewById(R.id.addEventButton);
-
-        addEventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Récupération des informations de l'événement
-                EditText titleEditText = findViewById(R.id.eventTitle);
-                EditText descriptionEditText = findViewById(R.id.eventDescription);
-                DatePicker startDatePicker = findViewById(R.id.eventStartDate);
-                DatePicker endDatePicker = findViewById(R.id.eventEndDate);
-                RadioGroup colorRadioGroup = findViewById(R.id.colorRadioGroup);
-
-                String title = titleEditText.getText().toString();
-                String description = descriptionEditText.getText().toString();
-
-                int startYear = startDatePicker.getYear();
-                int startMonth = startDatePicker.getMonth();
-                int startDay = startDatePicker.getDayOfMonth();
-
-                int endYear = endDatePicker.getYear();
-                int endMonth = endDatePicker.getMonth();
-                int endDay = endDatePicker.getDayOfMonth();
-
-                // Convertir les dates en millisecondes
-                Calendar startCalendar = Calendar.getInstance();
-                startCalendar.set(startYear, startMonth, startDay);
-                long startMillis = startCalendar.getTimeInMillis();
-
-                Calendar endCalendar = Calendar.getInstance();
-                endCalendar.set(endYear, endMonth, endDay);
-                long endMillis = endCalendar.getTimeInMillis();
-
-                // Ajout de l'événement à l'agenda
-                addEventToCalendar(startMillis, endMillis, title, description);
-
-                finish();
-            }
-
-        });
+        // Retrieve the calendar ID from the intent extras
+        calendarId = getIntent().getLongExtra("calendarId", -1);
     }
 
-    public void addEventToCalendar(long startMillis, long endMillis, String title, String description) {
-        // Récupérer l'ID du calendrier
-        String calID = "calendarView";
+    public void onSaveButtonClick(View view) {
+        // Get the selected date from the intent extras
+        int year = getIntent().getIntExtra("year", 0);
+        int month = getIntent().getIntExtra("month", 0);
+        int dayOfMonth = getIntent().getIntExtra("dayOfMonth", 0);
 
-        // Ajouter l'événement au calendrier
-        ContentResolver cr = getContentResolver();
+        // Save and display the event for the selected date
+        saveEventToCalendar(year, month, dayOfMonth);
+    }
+
+    private void saveEventToCalendar(int year, int month, int dayOfMonth) {
+        // Get the content resolver
+        ContentResolver contentResolver = getContentResolver();
+
+        // Define the event values
         ContentValues values = new ContentValues();
-        values.put(CalendarContract.Events.DTSTART, startMillis);
-        values.put(CalendarContract.Events.DTEND, endMillis);
-        values.put(CalendarContract.Events.TITLE, title);
-        values.put(CalendarContract.Events.DESCRIPTION, description);
-        values.put(CalendarContract.Events.CALENDAR_ID, calID);
-        values.put(CalendarContract.Events.EVENT_COLOR, Color.RED);
+        values.put(CalendarContract.Events.TITLE, "My Event");
+        values.put(CalendarContract.Events.DESCRIPTION, "Event Description");
+        values.put(CalendarContract.Events.CALENDAR_ID, calendarId); // Use the calendar ID from intent
         values.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
-        Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
-        long eventID = Long.parseLong(uri.getLastPathSegment());
-    }
 
+        // Set the start and end time of the event
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE, 0);
+        long startTime = calendar.getTimeInMillis();
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        long endTime = calendar.getTimeInMillis();
+        values.put(CalendarContract.Events.DTSTART, startTime);
+        values.put(CalendarContract.Events.DTEND, endTime);
+
+        // Insert the event
+        Uri uri = contentResolver.insert(CalendarContract.Events.CONTENT_URI, values);
+
+        // Check if the event was saved successfully
+        if (uri != null) {
+            Toast.makeText(this, "Event saved to calendar", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Failed to save event to calendar", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
