@@ -10,30 +10,46 @@
 
     <View
         android:id="@+id/blueView"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@android:color/holo_blue_light"
-        app:layout_constraintHeight_percent="0.15" />
+        app:layout_constraintBottom_toTopOf="@+id/whiteView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHeight_percent="0.15"
+        tools:ignore="UnknownIdInLayout" />
 
-    <!-- Vue avec fond blanc qui occupe 75% de la hauteur de l'écran -->
-
-    <include
-        android:id="@+id/include"
-        layout="@layout/bandeau" />
-
-    <Button
-        android:id="@+id/button"
+    <TextView
+        android:onClick="onChronoClick"
+        android:fontFamily="@font/inter_font"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="104dp"
-        android:backgroundTint="@android:color/holo_blue_light"
-        android:onClick="onButtonClickMain"
-        android:text="Page suivante"
-        app:layout_constraintBottom_toBottomOf="@+id/include"
+        android:text="CHRΩNOS "
+        android:textColor="@android:color/white"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="@+id/blueView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/include"
-        app:layout_constraintVertical_bias="1.0"/>
+        app:layout_constraintStart_toStartOf="@+id/blueView"
+        app:layout_constraintTop_toTopOf="@+id/blueView" />
+
+    <Button
+        android:id="@+id/idSimpleBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:drawableTop="@drawable/calendar"
+        android:drawablePadding="20dp"
+        android:text="Emploi du Temps"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/blueView"
+        tools:layout_editor_absoluteX="93dp" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
