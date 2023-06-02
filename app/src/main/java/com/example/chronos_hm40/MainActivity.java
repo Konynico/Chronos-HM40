@@ -29,7 +29,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
-
+    public  void onTodoClick(View view){
+        Intent intent = new Intent(this, TodoList.class);
+        startActivity(intent);
     }
+
+
+    public void change(View view) {
+        Intent intent = new Intent(this, Menu.class);
+        startActivity(intent);
+    }
+}
