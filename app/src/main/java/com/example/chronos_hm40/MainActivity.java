@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void change(View view) {
-        Intent intent = new Intent(this, Menu.class);
+    public void onEDTClick(View view) {
+        Intent intent = new Intent(this, CalendarActivity.class);
         startActivity(intent);
     }
 }
