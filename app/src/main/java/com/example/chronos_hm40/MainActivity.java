@@ -15,14 +15,6 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         setContentView(R.layout.activity_main);
     }
-    public void onButtonClickMain(View view) {
-        // Créer une nouvelle intention pour l'activité que vous souhaitez ouvrir
-        Intent intent = new Intent(this, Menu.class);
-
-        // Démarrer l'activité en utilisant cette intention
-        startActivity(intent);
-        //finish();
-    }
 
     public  void onChronoClick(View view){
         Intent intent = new Intent(this, MainActivity.class);

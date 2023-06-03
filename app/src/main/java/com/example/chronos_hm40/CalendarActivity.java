@@ -6,23 +6,6 @@ import android.widget.CalendarView;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
-
-import android.content.ContentResolver;
-import android.content.ContentValues;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.CalendarContract;
-import android.view.View;
-import android.widget.CalendarView;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.Calendar;
-import java.util.TimeZone;
-
 public class CalendarActivity extends AppCompatActivity {
 
     private CalendarView calendarView;
@@ -37,8 +20,7 @@ public class CalendarActivity extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                // Create and start the CreateEvenement activity
-                Intent intent = new Intent(CalendarActivity.this, CreateEvenement.class);
+                Intent intent = new Intent(CalendarActivity.this, EventListActivity.class);
                 intent.putExtra("year", year);
                 intent.putExtra("month", month);
                 intent.putExtra("dayOfMonth", dayOfMonth);
@@ -49,7 +31,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     public void onButtonClickCalendar(View view) {
         // Créer une nouvelle intention pour l'activité que vous souhaitez ouvrir
-        Intent intent = new Intent(this, CreateEvenement.class);
+        Intent intent = new Intent(this, AddEventActivity.class);
 
         // Démarrer l'activité en utilisant cette intention
         startActivity(intent);
