@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Chronos</string>
     <string name="button">Button</string>
+    <string-array name="frequency_options">
+            <item>Quotidienne</item>
+            <item>Hebdomadaire</item>
+            <item>Bimensuelle</item>
+            <item>Mensuelle</item>
+            <item>Unique</item>
+    </string-array>
 </resources>

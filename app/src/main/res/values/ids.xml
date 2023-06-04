@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="eventListView" type="id" />
+    <item name="editTextDateEnd" type="id" />
+    <item name="editTextHourEnd" type="id" />
+    <item name="buttonAddCourse" type="id" />
+    <item name="editTextDateBegin" type="id" />
+    <item name="editTextHourBegin" type="id" />
+    <item name="editTextFrequency" type="id" />
+    <item name="editTextSchedule" type="id" />
+    <item name="editTextColor" type="id" />
+    <item name="editTextSubtitle" type="id" />
+    <item name="editTextTitle" type="id" />
 </resources>
