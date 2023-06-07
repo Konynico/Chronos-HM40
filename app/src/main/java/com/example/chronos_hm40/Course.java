@@ -1,6 +1,13 @@
 package com.example.chronos_hm40;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "courses")
 public class Course {
+    @PrimaryKey(autoGenerate = true)
+    private Integer id;
+
     private String title;
     private String subTitle;
     private int color;
@@ -83,5 +90,13 @@ public class Course {
 
     public void setDateEnd(String dateEnd) {
         this.dateEnd = dateEnd;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

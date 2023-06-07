@@ -3,6 +3,7 @@ package com.example.chronos_hm40;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.room.Room;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,10 +13,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.List;
+
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class AddCourseActivity extends AppCompatActivity {
-    DatabaseHelper databaseHelper = new DatabaseHelper(this);
+    private AppDatabase appDatabase;
 
     ConstraintLayout mLayout;
     int mDefaultColor;
@@ -24,6 +27,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
     Spinner spinnerFrequency;
     ArrayAdapter<CharSequence> frequencyAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +37,9 @@ public class AddCourseActivity extends AppCompatActivity {
         frequencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFrequency.setAdapter(frequencyAdapter);
 
-        mLayout = (ConstraintLayout) findViewById(R.id.layout);
+        mLayout = findViewById(R.id.layout);
         mDefaultColor = ContextCompat.getColor(AddCourseActivity.this, R.color.colorPrimary);
-        mButton = (Button) findViewById(R.id.button);
+        mButton = findViewById(R.id.button);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,6 +53,14 @@ public class AddCourseActivity extends AppCompatActivity {
                 saveCourse();
             }
         });
+
+        // Initialisez la base de données Room
+        if (appDatabase == null) {
+            appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "course-db")
+                    .allowMainThreadQueries()
+                    .build();
+        }
+
     }
 
     public void openColorPicker() {
@@ -65,6 +77,7 @@ public class AddCourseActivity extends AppCompatActivity {
         });
         colorPicker.show();
     }
+
     private void saveCourse() {
         EditText editTextTitle = findViewById(R.id.editTextTitle);
         EditText editTextSubtitle = findViewById(R.id.editTextSubtitle);
@@ -85,13 +98,21 @@ public class AddCourseActivity extends AppCompatActivity {
         // Créez une instance de la classe Course avec les données du formulaire
         Course course = new Course(title, subtitle, color, frequency, hourBegin, hourEnd, dateBegin, dateEnd);
 
-        // Ajoutez la course à la base de données en utilisant DatabaseHelper
-        databaseHelper.addCourse(course);
+        // Ajoutez la course à la base de données en utilisant Room
+        appDatabase.courseDao().insertCourse(course);
 
         // Affichez un message ou effectuez toute autre action après avoir ajouté la course à la base de données
         Toast.makeText(AddCourseActivity.this, "Course ajoutée avec succès", Toast.LENGTH_SHORT).show();
-
+        getAllCourses();
         // Fermez l'activité AddCourseActivity et retournez à l'activité précédente
         finish();
+    }
+
+    private void getAllCourses() {
+        List<Course> courses = appDatabase.courseDao().getAllCourses();
+        for (Course course : courses) {
+            // Faites quelque chose avec chaque course
+            Toast.makeText(this, course.getTitle(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
