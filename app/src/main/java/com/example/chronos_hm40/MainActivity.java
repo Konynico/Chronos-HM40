@@ -15,7 +15,6 @@ import java.nio.file.attribute.AclEntry;
 
 public class MainActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

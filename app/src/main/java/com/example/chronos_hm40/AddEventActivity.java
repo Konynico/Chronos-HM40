@@ -9,11 +9,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AddEventActivity extends AppCompatActivity {
 
     private EditText titleEditText;
     private EditText descriptionEditText;
     private Button addButton;
+
+    public List<Event> liste = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +64,15 @@ public class AddEventActivity extends AppCompatActivity {
 
         // Créer un nouvel événement avec les valeurs saisies
 
-        int year = 0;
-        int month = 0;
-        int dayOfMonth = 0;
+        int year = 2023;
+        int month = 6;
+        int dayOfMonth = 7;
         Event event = new Event(title, description, year, month, dayOfMonth);
 
         // Ajouter l'événement à la base de données
         databaseHelper.addEvent(event);
+
+        liste = databaseHelper.getEventsForSelectedDate(0, 0, 0);
 
         // Afficher un message de succès
         Toast.makeText(this, "Événement ajouté avec succès", Toast.LENGTH_SHORT).show();
