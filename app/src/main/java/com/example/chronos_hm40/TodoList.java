@@ -62,29 +62,76 @@ public class TodoList extends AppCompatActivity {
     }
 
     private void setupListViewListener() {
-        lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapter, View item, int pos, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(TodoList.this);
-                builder.setTitle("Confirmation");
-                builder.setMessage("Êtes-vous sûr de vouloir supprimer cet élément de votre liste de tâches ?");
-                builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        removeItem(pos);
-                    }
-                });
-                builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // Ne faites rien ici - fermez simplement le popup
-                    }
-                });
+                builder.setTitle("Modifier le todo");
+
+                View dialogView = getLayoutInflater().inflate(R.layout.dialog_edit_todo, null);
+                builder.setView(dialogView);
+
+                EditText etEditItem = dialogView.findViewById(R.id.etEditItem);
+                EditText etEditDate = dialogView.findViewById(R.id.etEditDate);
+
+                Button btnDelete = dialogView.findViewById(R.id.btnDelete);
+                Button btnCancel = dialogView.findViewById(R.id.btnCancel);
+                Button btnSave = dialogView.findViewById(R.id.btnSave);
+
+                String item = items.get(position);
+                String[] parts = item.split("\n");
+                String currentItem = parts[0];
+                String currentDate = parts[1];
+                int currentColor = Integer.parseInt(parts[2]);
+
+                etEditItem.setText(currentItem);
+                etEditDate.setText(currentDate);
+
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
-                return true;
+                btnDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder deleteConfirmBuilder = new AlertDialog.Builder(TodoList.this);
+                        deleteConfirmBuilder.setTitle("Confirmation");
+                        deleteConfirmBuilder.setMessage("Êtes-vous sûr de vouloir supprimer cet élément de votre liste de tâches ?");
+                        deleteConfirmBuilder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                removeItem(position);
+
+                            }
+                        });dialog.dismiss();
+                        deleteConfirmBuilder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Ne faites rien ici - fermez simplement le popup
+                            }
+                        });
+
+                        AlertDialog deleteConfirmDialog = deleteConfirmBuilder.create();
+                        deleteConfirmDialog.show();
+                    }
+                });
+
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                btnSave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String editedItem = etEditItem.getText().toString() + "\n" + etEditDate.getText().toString() + "\n";
+                        editItem(position, editedItem);
+                        dialog.dismiss();
+                    }
+                });
             }
         });
     }
@@ -139,6 +186,12 @@ public class TodoList extends AppCompatActivity {
 
     private void removeItem(int position) {
         items.remove(position);
+        itemsAdapter.notifyDataSetChanged();
+        writeItems();
+    }
+
+    private void editItem(int position, String newItem) {
+        items.set(position, newItem);
         itemsAdapter.notifyDataSetChanged();
         writeItems();
     }

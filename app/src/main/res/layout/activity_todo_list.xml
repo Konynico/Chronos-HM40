@@ -29,7 +29,7 @@
             android:id="@+id/etNewDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter a date for the ToDo" />
+            android:hint="Date (jj/mm/aaaa)" />
 
         <Button
             android:id="@+id/button"
