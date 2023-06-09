@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.opencsv.CSVWriter;
@@ -19,6 +22,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Locale;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -28,36 +33,49 @@ public class AddEventActivity extends AppCompatActivity {
     int mDefaultColor;
     Button mButton;
     Button addButton;
-    Spinner spinnerFrequency;
-    Spinner spinnerDay;
-    ArrayAdapter<CharSequence> frequencyAdapter;
-    ArrayAdapter<CharSequence> dayAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_course);
-        spinnerFrequency = findViewById(R.id.spinnerFrequency);
-        spinnerDay = findViewById(R.id.spinnerDay);
-        frequencyAdapter = ArrayAdapter.createFromResource(this, R.array.frequency_options, android.R.layout.simple_spinner_item);
-        frequencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerFrequency.setAdapter(frequencyAdapter);
+        setContentView(R.layout.activity_add_event);
 
-        dayAdapter = ArrayAdapter.createFromResource(this, R.array.day_options, android.R.layout.simple_spinner_item);
-        dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerDay.setAdapter(dayAdapter);
+        Button buttonSelectDate = findViewById(R.id.buttonSelectDate);
+        TextView textViewDate = findViewById(R.id.textViewDate);
+
+        buttonSelectDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Récupérer la date actuelle
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                // Créer le DatePickerDialog
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AddEventActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int selectedYear, int selectedMonth, int selectedDayOfMonth) {
+                        // Mettre à jour l'affichage avec la date sélectionnée
+                        String formattedDate = String.format(Locale.getDefault(), "%02d/%02d/%04d", selectedDayOfMonth, selectedMonth + 1, selectedYear);
+                        textViewDate.setText(formattedDate);
+                    }
+                }, year, month, dayOfMonth);
+
+                // Afficher le DatePickerDialog
+                datePickerDialog.show();
+            }
+        });
 
         mLayout = findViewById(R.id.layout);
         mDefaultColor = ContextCompat.getColor(AddEventActivity.this, R.color.colorPrimary);
-        mButton = findViewById(R.id.button);
+        mButton = findViewById(R.id.buttonColor);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openColorPicker();
             }
         });
-        addButton = findViewById(R.id.buttonAddCourse);
+        addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,12 +102,12 @@ public class AddEventActivity extends AppCompatActivity {
     private void saveEvent() {
         EditText editTextTitle = findViewById(R.id.editTextTitle);
         EditText editTextDescription = findViewById(R.id.editTextDescription);
-        EditText editTextDate = findViewById(R.id.editTextDate);
+        TextView textViewDate = findViewById(R.id.textViewDate);
 
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
         int color = mDefaultColor;
-        String date = editTextDate.getText().toString();
+        String date = textViewDate.getText().toString();
 
         // Créez une instance de la classe Course avec les données du formulaire
         Event event = new Event(title, description, color, date);

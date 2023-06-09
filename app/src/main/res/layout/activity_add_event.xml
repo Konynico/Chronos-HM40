@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter_font"
-        android:text="AJOUTER UNE PLAGE HORAIRE"
+        android:text="AJOUTER UN EVENEMENT"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -61,61 +61,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
 
-    <Spinner
-        android:id="@+id/spinnerFrequency"
+    <Button
+        android:id="@+id/buttonSelectDate"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
+        android:text="Sélectionner une date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
 
-
-    <Spinner
-        android:id="@+id/spinnerDay"
+    <TextView
+        android:id="@+id/textViewDate"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
+        android:text="Date      JJ/MM/AAAA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerFrequency" />
-
-    <EditText
-        android:id="@+id/editTextDate"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="12dp"
-        android:hint="Date de fin      JJ:MM:AAAA"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonSelectDate" />
 
     <Button
         android:id="@+id/buttonColor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="64dp"
         android:backgroundTint="@android:color/holo_blue_bright"
         android:hint="Couleur de l'évènement"
         android:onClick="onAddEventClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewDate" />
 
     <Button
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Ajouter l'évènement'"
+        android:text="Ajouter l'évènement"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addButton"
-        tools:ignore="NotSibling" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonColor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

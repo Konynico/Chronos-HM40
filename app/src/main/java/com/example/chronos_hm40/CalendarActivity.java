@@ -10,21 +10,17 @@ public class CalendarActivity extends AppCompatActivity {
 
     private CalendarView calendarView;
 
-    private EventDatabaseHelper databaseHelper;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-
-        databaseHelper = new EventDatabaseHelper(this);
 
         calendarView = findViewById(R.id.calendarView);
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                Intent intent = new Intent(CalendarActivity.this, EventListActivity.class);
+                Intent intent = new Intent(CalendarActivity.this, ShowEvent.class);
                 intent.putExtra("year", year);
                 intent.putExtra("month", month);
                 intent.putExtra("dayOfMonth", dayOfMonth);
@@ -40,9 +36,5 @@ public class CalendarActivity extends AppCompatActivity {
         // Démarrer l'activité en utilisant cette intention
         startActivity(intent);
         //finish();
-    }
-
-    public EventDatabaseHelper getDatabaseHelper() {
-        return databaseHelper;
     }
 }
