@@ -2,6 +2,7 @@ package com.example.chronos_hm40;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +33,7 @@ import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class TodoList extends AppCompatActivity {
     private ArrayList<String> items;
+
     private ArrayAdapter<String> itemsAdapter;
     private ListView lvItems;
     private File todoFile;
@@ -52,7 +55,19 @@ public class TodoList extends AppCompatActivity {
         todoFile = new File(getFilesDir(), "todo.csv");
 
         readItems();
-        itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+        itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items) {
+            @Override
+            public View getView(int position, View convertView, android.view.ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                String item = items.get(position);
+                String[] parts = item.split("\n");
+                TextView textView = view.findViewById(android.R.id.text1);
+                textView.setText(parts[0] + "\n" + parts[1]); // Affichez uniquement la première partie (le texte de l'élément) et ignorez la couleur
+                int color = Integer.parseInt(parts[2]);
+                textView.setTextColor(color);
+                return view;
+            }
+        };
         lvItems.setAdapter(itemsAdapter);
         setupListViewListener();
     }
@@ -87,7 +102,6 @@ public class TodoList extends AppCompatActivity {
                 etEditItem.setText(currentItem);
                 etEditDate.setText(currentDate);
 
-
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
@@ -102,7 +116,6 @@ public class TodoList extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                                 removeItem(position);
-
                             }
                         });dialog.dismiss();
                         deleteConfirmBuilder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
@@ -127,9 +140,16 @@ public class TodoList extends AppCompatActivity {
                 btnSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String editedItem = etEditItem.getText().toString() + "\n" + etEditDate.getText().toString() + "\n";
-                        editItem(position, editedItem);
-                        dialog.dismiss();
+                        String editedItem = etEditItem.getText().toString();
+                        String editedDate = etEditDate.getText().toString();
+
+                        if (isValidDate(editedDate)) {
+                            editedItem += "\n" + editedDate + "\n" + currentColor;
+                            editItem(position, editedItem);
+                            dialog.dismiss();
+                        } else {
+                            Toast.makeText(TodoList.this, "Date invalide. Date trop ancienne ou mauvais format de date : (jj/mm/aaaa)", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
@@ -143,14 +163,19 @@ public class TodoList extends AppCompatActivity {
         String dateText = etNewDate.getText().toString();
 
         if (!itemText.isEmpty() && isValidDate(dateText)) {
+            // Créer un SpannableString avec la couleur sélectionnée
             String newItem = itemText + "\n" + dateText + "\n" + selectedColor;
-            addItem(newItem);
+
+            items.add(0, newItem);
+            itemsAdapter.notifyDataSetChanged();
+
+            writeItems();
 
             etNewItem.setText("");
             etNewDate.setText("");
         } else {
             // Afficher un message d'erreur à l'utilisateur
-            Toast.makeText(this, "Date invalide. Date trop ancienne ou mauvais format de date : XX/XX/XXXX ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Date invalide. Date trop ancienne ou mauvais format de date : (jj/mm/aaaa) ", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -196,6 +221,11 @@ public class TodoList extends AppCompatActivity {
         writeItems();
     }
 
+    public  void onChronoClick(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -235,7 +265,6 @@ public class TodoList extends AppCompatActivity {
         });
         colorPicker.show();
     }
-
 
     private void writeItems() {
         try {
