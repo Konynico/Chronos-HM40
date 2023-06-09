@@ -4,12 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 
-
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.nio.file.attribute.AclEntry;
 
@@ -36,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void onEDTClick(View view) {
         Intent intent = new Intent(this, CalendarActivity.class);
+        startActivity(intent);
+    }
+
+    public void onScheduleClick(View view) {
+        Intent intent = new Intent(this, ScheduleActivity.class);
         startActivity(intent);
     }
 

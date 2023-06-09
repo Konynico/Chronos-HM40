@@ -8,6 +8,15 @@
         <item>Mensuelle</item>
         <item>Unique</item>
     </string-array>
+    <string-array name="day_options">
+        <item>Lundi</item>
+        <item>Mardi</item>
+        <item>Mercredi</item>
+        <item>Jeudi</item>
+        <item>Vendredi</item>
+        <item>Samedi</item>
+        <item>Dimanche</item>
+    </string-array>
     <string name="title_activity_show_database">ShowDatabaseActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
