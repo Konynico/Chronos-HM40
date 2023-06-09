@@ -1,11 +1,14 @@
 package com.example.chronos_hm40;
 
-import android.content.Context;
-import android.provider.CalendarContract;
-import android.util.Xml;
-import androidx.recyclerview.widget.RecyclerView;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
-import com.example.chronos_hm40.Event;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
@@ -13,28 +16,15 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.xmlpull.v1.XmlSerializer;
-
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-
 public class ShowEvent extends AppCompatActivity {
 
-    private ArrayList<Event> events;
+    private ArrayList<String> events;
+    private ArrayAdapter<String> eventsAdapter;
     private ListView lvEvents;
     private File eventFile;
-
-    private static final String CSV_FILE_NAME = "data_event.csv";
-    private static final String XML_FILE_NAME = "data_event.xml";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,30 +33,22 @@ public class ShowEvent extends AppCompatActivity {
 
         lvEvents = findViewById(R.id.lvEvents);
         events = new ArrayList<>();
-        eventFile = new File(getFilesDir(), "todo.csv");
+        eventFile = new File(getFilesDir(), "data.csv");
 
-        readItems();
-        itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
-        lvItems.setAdapter(itemsAdapter);
-        setupListViewListener();
+        readEvents();
 
-        // Charger les données depuis le fichier CSV et générer le fichier XML
-        ArrayList<Event> eventList = readCsv(this);
-        generateXml(eventList, this);
-
-        setContentView(R.layout.data_event);
-
-        // Récupérer les données de l'intent
-        String title = getIntent().getStringExtra("title");
-        String description = getIntent().getStringExtra("description");
-        int color = getIntent().getIntExtra("color", 0);
-        String date = getIntent().getStringExtra("date");
-
-        // Afficher les données dans les TextViews
-        titleTextView.setText(title);
-        descriptionTextView.setText(description);
-        colorTextView.setBackgroundColor(color);
-        dateTextView.setText(date);
+        eventsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, events) {
+            @Override
+            public View getView(int position, View convertView, android.view.ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                String event = events.get(position);
+                String[] parts = event.split("\n");
+                TextView textView = view.findViewById(android.R.id.text1);
+                textView.setText(parts[0] + ", " + parts[1] + ", " + parts[2] + ", " + parts[3]);
+                return view;
+            }
+        };
+        lvEvents.setAdapter(eventsAdapter);
     }
 
     private void readEvents() {
@@ -76,7 +58,7 @@ public class ShowEvent extends AppCompatActivity {
             List<String[]> csvData = csvReader.readAll();
 
             for (String[] row : csvData) {
-                String item = row[0] + "\n" + row[1] + "\n" + row[2];
+                String event = row[0] + "\n" + row[1] + "\n" + row[2];
                 events.add(event);
             }
 
@@ -87,6 +69,9 @@ public class ShowEvent extends AppCompatActivity {
             throw new RuntimeException(e);
         }
     }
+
+    public  void onChronoClick(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }
-
-

@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -34,6 +35,10 @@ public class AddEventActivity extends AppCompatActivity {
     Button mButton;
     Button addButton;
 
+    private File eventFile;
+
+    private ArrayList<String> events;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +46,10 @@ public class AddEventActivity extends AppCompatActivity {
 
         Button buttonSelectDate = findViewById(R.id.buttonSelectDate);
         TextView textViewDate = findViewById(R.id.textViewDate);
+
+        eventFile = new File(getFilesDir(), "event.csv");
+        events = new ArrayList<>();
+
 
         buttonSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,42 +120,26 @@ public class AddEventActivity extends AppCompatActivity {
 
         // Créez une instance de la classe Course avec les données du formulaire
         Event event = new Event(title, description, color, date);
-        writeEventToCSV(event);
+        writeEventToCSV();
 
         // Fermez l'activité AddCourseActivity et retournez à l'activité précédente
         finish();
     }
 
-    private void writeEventToCSV(Event event) {
-        String[] data = {event.getTitle(), event.getDescription(), String.valueOf(event.getColor()), event.getDate() }; // Remplacez ... par les autres attributs de la classe Course
-        File directory = getExternalFilesDir(null);
-        // Créez le fichier CSV dans le répertoire
-        File file = new File(directory, "data_event.csv");
-
+    private void writeEventToCSV() {
         try {
-            FileWriter fileWriter = new FileWriter(file, true); // Mode append (ajout)
-            CSVWriter writer = new CSVWriter(fileWriter); // Remplacez "chemin_vers_le_fichier.csv" par le chemin réel vers votre fichier CSV
+            FileWriter fileWriter = new FileWriter(eventFile);
+            CSVWriter csvWriter = new CSVWriter(fileWriter);
 
-            writer.writeNext(data);
-
-            writer.close();
-
-            Toast.makeText(AddEventActivity.this, "Données ajoutées au fichier CSV avec succès", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(AddEventActivity.this, "Erreur lors de l'ajout des données au fichier CSV", Toast.LENGTH_SHORT).show();
-        }
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-                // Traitez chaque ligne du fichier CSV ici
-                Toast.makeText(AddEventActivity.this, line , Toast.LENGTH_SHORT).show();
-
+            for (String event : events) {
+                String[] row = event.split("\n");
+                csvWriter.writeNext(row);
             }
-            br.close();
+
+            csvWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }
