@@ -100,4 +100,5 @@ public class EventDatabaseHelper extends SQLiteOpenHelper {
 
         return eventList;
     }
+
 }

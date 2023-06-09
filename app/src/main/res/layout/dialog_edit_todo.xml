@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/etEditItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contenu du todo"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeMaxTextSize="48sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform" />
+
+    <EditText
+        android:id="@+id/etEditDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date (jj/mm/aaaa)"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeMaxTextSize="48sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:text="Suppr." />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:text="Annuler" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:text="Enreg." />
+
+    </LinearLayout>
+
+</LinearLayout>

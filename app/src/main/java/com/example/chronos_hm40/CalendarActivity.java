@@ -10,10 +10,14 @@ public class CalendarActivity extends AppCompatActivity {
 
     private CalendarView calendarView;
 
+    private EventDatabaseHelper databaseHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
+        databaseHelper = new EventDatabaseHelper(this);
 
         calendarView = findViewById(R.id.calendarView);
 
@@ -36,5 +40,9 @@ public class CalendarActivity extends AppCompatActivity {
         // Démarrer l'activité en utilisant cette intention
         startActivity(intent);
         //finish();
+    }
+
+    public EventDatabaseHelper getDatabaseHelper() {
+        return databaseHelper;
     }
 }

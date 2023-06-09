@@ -13,7 +13,9 @@ public class EventListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private EventAdapter eventAdapter;
+
     private EventDatabaseHelper databaseHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +31,8 @@ public class EventListActivity extends AppCompatActivity {
         int month = intent.getIntExtra("month", 0);
         int dayOfMonth = intent.getIntExtra("dayOfMonth", 0);
 
-        // Initialiser la base de données
-        databaseHelper = new EventDatabaseHelper(this);
+        CalendarActivity calendarActivity = (CalendarActivity) getApplicationContext();
+        databaseHelper = calendarActivity.getDatabaseHelper();
 
         // Récupérer les événements associés à la date sélectionnée depuis la base de données
         List<Event> eventsForSelectedDate = databaseHelper.getEventsForSelectedDate(year, month, dayOfMonth);
@@ -47,11 +49,6 @@ public class EventListActivity extends AppCompatActivity {
         if (databaseHelper != null) {
             databaseHelper.close();
         }
-    }
-
-    private List<Event> getEventsForSelectedDate(int year, int month, int dayOfMonth) {
-        // Utiliser la méthode de la base de données pour récupérer les événements associés à la date sélectionnée
-        return databaseHelper.getEventsForSelectedDate(year, month, dayOfMonth);
     }
 
 }

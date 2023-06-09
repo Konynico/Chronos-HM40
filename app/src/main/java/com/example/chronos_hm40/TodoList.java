@@ -2,20 +2,32 @@ package com.example.chronos_hm40;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
-import org.apache.commons.io.FileUtils;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvException;
 
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class TodoList extends AppCompatActivity {
     private ArrayList<String> items;
@@ -23,14 +35,21 @@ public class TodoList extends AppCompatActivity {
     private ListView lvItems;
     private File todoFile;
 
+    private int selectedColor;
+    private Button btnColorPicker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_list);
+        btnColorPicker = findViewById(R.id.button);
+
+        selectedColor = ContextCompat.getColor(TodoList.this, R.color.colorPrimary);
+        btnColorPicker.setBackgroundColor(selectedColor);
 
         lvItems = findViewById(R.id.lvItems);
         items = new ArrayList<>();
-        todoFile = new File(getFilesDir(), "todo.txt");
+        todoFile = new File(getFilesDir(), "todo.csv");
 
         readItems();
         itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
@@ -38,30 +57,81 @@ public class TodoList extends AppCompatActivity {
         setupListViewListener();
     }
 
+    public void onClick(View v) {
+        openColorPicker();
+    }
+
     private void setupListViewListener() {
-        lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapter, View item, int pos, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(TodoList.this);
-                builder.setTitle("Confirmation");
-                builder.setMessage("Êtes-vous sûr de vouloir supprimer cet élément de votre todo liste ?");
-                builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        removeItem(pos);
-                    }
-                });
-                builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // Ne faites rien ici - fermez simplement le popup
-                    }
-                });
+                builder.setTitle("Modifier le todo");
+
+                View dialogView = getLayoutInflater().inflate(R.layout.dialog_edit_todo, null);
+                builder.setView(dialogView);
+
+                EditText etEditItem = dialogView.findViewById(R.id.etEditItem);
+                EditText etEditDate = dialogView.findViewById(R.id.etEditDate);
+
+                Button btnDelete = dialogView.findViewById(R.id.btnDelete);
+                Button btnCancel = dialogView.findViewById(R.id.btnCancel);
+                Button btnSave = dialogView.findViewById(R.id.btnSave);
+
+                String item = items.get(position);
+                String[] parts = item.split("\n");
+                String currentItem = parts[0];
+                String currentDate = parts[1];
+                int currentColor = Integer.parseInt(parts[2]);
+
+                etEditItem.setText(currentItem);
+                etEditDate.setText(currentDate);
+
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
-                return true;
+                btnDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder deleteConfirmBuilder = new AlertDialog.Builder(TodoList.this);
+                        deleteConfirmBuilder.setTitle("Confirmation");
+                        deleteConfirmBuilder.setMessage("Êtes-vous sûr de vouloir supprimer cet élément de votre liste de tâches ?");
+                        deleteConfirmBuilder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                removeItem(position);
+
+                            }
+                        });dialog.dismiss();
+                        deleteConfirmBuilder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Ne faites rien ici - fermez simplement le popup
+                            }
+                        });
+
+                        AlertDialog deleteConfirmDialog = deleteConfirmBuilder.create();
+                        deleteConfirmDialog.show();
+                    }
+                });
+
+                btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                btnSave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String editedItem = etEditItem.getText().toString() + "\n" + etEditDate.getText().toString() + "\n";
+                        editItem(position, editedItem);
+                        dialog.dismiss();
+                    }
+                });
             }
         });
     }
@@ -72,13 +142,40 @@ public class TodoList extends AppCompatActivity {
         String itemText = etNewItem.getText().toString();
         String dateText = etNewDate.getText().toString();
 
-        if (!itemText.isEmpty() && !dateText.isEmpty()) {
-            String newItem = itemText + "\n" + dateText;
+        if (!itemText.isEmpty() && isValidDate(dateText)) {
+            String newItem = itemText + "\n" + dateText + "\n" + selectedColor;
             addItem(newItem);
 
             etNewItem.setText("");
             etNewDate.setText("");
+        } else {
+            // Afficher un message d'erreur à l'utilisateur
+            Toast.makeText(this, "Date invalide. Date trop ancienne ou mauvais format de date : XX/XX/XXXX ", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean isValidDate(String date) {
+        String[] dateParts = date.split("/");
+        if (dateParts.length != 3) {
+            return false;
+        }
+        int day = Integer.parseInt(dateParts[0]);
+        int month = Integer.parseInt(dateParts[1]);
+        int year = Integer.parseInt(dateParts[2]);
+
+        // Obtenir la date d'aujourd'hui
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH) + 1; // Les mois dans Calendar sont indexés à partir de 0
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // Vérifier si la date est valide et supérieure à aujourd'hui
+        if (day >= 1 && day <= 31 && month >= 1 && month <= 12 && year >= currentYear) {
+            if (year > currentYear || (year == currentYear && month > currentMonth) || (year == currentYear && month == currentMonth && day >= currentDay)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void addItem(String item) {
@@ -93,6 +190,12 @@ public class TodoList extends AppCompatActivity {
         writeItems();
     }
 
+    private void editItem(int position, String newItem) {
+        items.set(position, newItem);
+        itemsAdapter.notifyDataSetChanged();
+        writeItems();
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -101,15 +204,50 @@ public class TodoList extends AppCompatActivity {
 
     private void readItems() {
         try {
-            items = new ArrayList<>(FileUtils.readLines(todoFile));
+            FileReader fileReader = new FileReader(todoFile);
+            CSVReader csvReader = new CSVReader(fileReader);
+            List<String[]> csvData = csvReader.readAll();
+
+            for (String[] row : csvData) {
+                String item = row[0] + "\n" + row[1] + "\n" + row[2];
+                items.add(item);
+            }
+
+            csvReader.close();
         } catch (IOException e) {
-            items = new ArrayList<>();
+            e.printStackTrace();
+        } catch (CsvException e) {
+            throw new RuntimeException(e);
         }
     }
 
+    public void openColorPicker() {
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, selectedColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+            }
+
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                selectedColor = color;
+                btnColorPicker.setBackgroundColor(selectedColor);
+            }
+        });
+        colorPicker.show();
+    }
+
+
     private void writeItems() {
         try {
-            FileUtils.writeLines(todoFile, items);
+            FileWriter fileWriter = new FileWriter(todoFile);
+            CSVWriter csvWriter = new CSVWriter(fileWriter);
+
+            for (String item : items) {
+                String[] row = item.split("\n");
+                csvWriter.writeNext(row);
+            }
+
+            csvWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
