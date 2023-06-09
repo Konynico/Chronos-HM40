@@ -11,16 +11,19 @@ public class Course {
     private String title;
     private String subTitle;
     private int color;
+
+    private String day;
     private String frequency;
     private String hourBegin;
     private String hourEnd;
     private String dateBegin;
     private String dateEnd;
 
-    public Course(String title, String subTitle, int color, String frequency, String hourBegin, String hourEnd, String dateBegin, String dateEnd) {
+    public Course(String title, String subTitle, int color,String day, String frequency, String hourBegin, String hourEnd, String dateBegin, String dateEnd) {
         this.title = title;
         this.subTitle = subTitle;
         this.color = color;
+        this.day = day;
         this.frequency = frequency;
         this.hourBegin = hourBegin;
         this.hourEnd = hourEnd;
@@ -98,5 +101,13 @@ public class Course {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 }

@@ -72,7 +72,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:background="@drawable/background_blue"
-                    android:onClick="onEDTClick"
+                    android:onClick="onScheduleClick"
                     android:orientation="vertical"
                     android:padding="30px">
 
