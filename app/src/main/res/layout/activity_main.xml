@@ -81,7 +81,7 @@
                         android:layout_width="79dp"
                         android:layout_height="54dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/calendar" />
+                        android:src="@drawable/schedule" />
 
                     <TextView
                         android:id="@+id/textView1"
@@ -122,6 +122,46 @@
                         android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:text="ToDo List"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Vos autres éléments -->
+
+                <LinearLayout
+                    android:id="@+id/linearLayout100"
+                    android:layout_width="0dp"
+                    android:layout_height="124dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_blue"
+                    android:onClick="onEDTClick"
+                    android:orientation="vertical"
+                    android:layout_marginTop="8dp"
+                    android:padding="30px">
+
+                    <ImageView
+                        android:id="@+id/Img100"
+                        android:layout_width="59dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="6dp"
+                        android:src="@drawable/calendar" />
+
+                    <TextView
+                        android:id="@+id/textView100"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginTop="12dp"
+                        android:text="Calendrier"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 </LinearLayout>

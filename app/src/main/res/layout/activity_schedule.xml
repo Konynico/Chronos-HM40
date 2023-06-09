@@ -95,14 +95,14 @@
 
     <GridLayout
         android:id="@+id/gridLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="184dp"
         android:columnCount="7"
         android:rowCount="25"
         android:useDefaultMargins="true"
         app:layout_constraintTop_toBottomOf="@+id/entete"
-        tools:layout_editor_absoluteX="16dp">
+        tools:layout_editor_absoluteX="130dp">
 
     </GridLayout>
 

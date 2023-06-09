@@ -207,7 +207,7 @@ public class ScheduleActivity extends AppCompatActivity {
         // Vérifier si le cours correspond à la date sélectionnée
         String selectedDay = new SimpleDateFormat("EEEE", Locale.FRENCH).format(currentDate.getTime());
         String selectedDate = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH).format(currentDate.getTime());
-        if (!course.getDay().equalsIgnoreCase(selectedDay) || !course.getDateBegin().equals(selectedDate)) {
+        if (!course.getDay().equalsIgnoreCase(selectedDay)) {
             return; // Le cours ne correspond pas à la date sélectionnée, ne l'ajoutez pas à la grille
         }
 
