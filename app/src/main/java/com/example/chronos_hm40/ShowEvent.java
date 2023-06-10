@@ -32,8 +32,8 @@ public class ShowEvent extends AppCompatActivity {
         setContentView(R.layout.data_event);
 
         lvEvents = findViewById(R.id.lvEvents);
-        events = new ArrayList<>();
-        eventFile = new File(getFilesDir(), "data.csv");
+        events = CalendarActivity.getEvents();
+        eventFile = CalendarActivity.getFile();
 
         readEvents();
 
@@ -58,7 +58,7 @@ public class ShowEvent extends AppCompatActivity {
             List<String[]> csvData = csvReader.readAll();
 
             for (String[] row : csvData) {
-                String event = row[0] + "\n" + row[1] + "\n" + row[2];
+                String event = row[0] + "\n" + row[1] + "\n" + row[2] + "\n" + row[3];
                 events.add(event);
             }
 

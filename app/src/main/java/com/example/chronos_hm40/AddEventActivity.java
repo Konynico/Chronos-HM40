@@ -37,6 +37,8 @@ public class AddEventActivity extends AppCompatActivity {
 
     private File eventFile;
 
+    private ArrayAdapter<String> eventsAdapter;
+
     private ArrayList<String> events;
 
     @Override
@@ -47,9 +49,22 @@ public class AddEventActivity extends AppCompatActivity {
         Button buttonSelectDate = findViewById(R.id.buttonSelectDate);
         TextView textViewDate = findViewById(R.id.textViewDate);
 
-        eventFile = new File(getFilesDir(), "event.csv");
-        events = new ArrayList<>();
+        eventFile = CalendarActivity.getFile();
+        events = CalendarActivity.getEvents();
 
+        eventsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, events) {
+            @Override
+            public View getView(int position, View convertView, android.view.ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                String event = events.get(position);
+                String[] parts = event.split("\n");
+                TextView textView = view.findViewById(android.R.id.text1);
+                textView.setText(parts[0] + "\n" + parts[1]); // Affichez uniquement la première partie (le texte de l'élément) et ignorez la couleur
+                int color = Integer.parseInt(parts[2]);
+                textView.setTextColor(color);
+                return view;
+            }
+        };
 
         buttonSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,15 +133,24 @@ public class AddEventActivity extends AppCompatActivity {
         int color = mDefaultColor;
         String date = textViewDate.getText().toString();
 
-        // Créez une instance de la classe Course avec les données du formulaire
-        Event event = new Event(title, description, color, date);
-        writeEventToCSV();
+
+        // Créer un SpannableString avec la couleur sélectionnée
+        String newEvent = title + "\n" + description + "\n" + color + "\n" + date;
+
+        events.add(0, newEvent);
+        eventsAdapter.notifyDataSetChanged();
+
+        writeEvents();
+
+        editTextTitle.setText("");
+        editTextDescription.setText("");
+        textViewDate.setText("");
 
         // Fermez l'activité AddCourseActivity et retournez à l'activité précédente
         finish();
     }
 
-    private void writeEventToCSV() {
+    private void writeEvents() {
         try {
             FileWriter fileWriter = new FileWriter(eventFile);
             CSVWriter csvWriter = new CSVWriter(fileWriter);
@@ -141,5 +165,4 @@ public class AddEventActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 }
