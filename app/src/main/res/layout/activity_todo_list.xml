@@ -59,14 +59,34 @@
             android:id="@+id/etNewItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:hint="Enter a new ToDo" />
 
-        <EditText
-            android:id="@+id/etNewDate"
+            android:hint="Entrer un nouveau Todo" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Date (jj/mm/aaaa)" />
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/buttonSelectDateTodo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sélectionner une date"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                android:onClick="onSelectDate" />
+
+            <EditText
+                android:id="@+id/etNewDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Date \n(jj/mm/aaaa)" />
+
+
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/button"

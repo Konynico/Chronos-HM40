@@ -44,7 +44,9 @@ public class ShowEvent extends AppCompatActivity {
                 String event = events.get(position);
                 String[] parts = event.split("\n");
                 TextView textView = view.findViewById(android.R.id.text1);
-                textView.setText(parts[0] + ", " + parts[1] + ", " + parts[2] + ", " + parts[3]);
+                textView.setText(parts[0] + ", " + parts[1] + ", " + parts[2]);
+                int color = Integer.parseInt(parts[3]);
+                textView.setBackgroundColor(color);
                 return view;
             }
         };

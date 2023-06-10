@@ -1,6 +1,7 @@
 package com.example.chronos_hm40;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,6 +30,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import yuku.ambilwarna.AmbilWarnaDialog;
 
@@ -71,6 +74,7 @@ public class TodoList extends AppCompatActivity {
         lvItems.setAdapter(itemsAdapter);
         setupListViewListener();
     }
+
 
     public void onClick(View v) {
         openColorPicker();
@@ -156,6 +160,28 @@ public class TodoList extends AppCompatActivity {
         });
     }
 
+
+    public void onSelectDate(View v) {
+        // Récupérer la date actuelle
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // Créer le DatePickerDialog
+        DatePickerDialog datePickerDialog = new DatePickerDialog(TodoList.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int selectedYear, int selectedMonth, int selectedDayOfMonth) {
+                // Mettre à jour l'affichage avec la date sélectionnée
+                EditText etNewDate = findViewById(R.id.etNewDate);
+                String formattedDate = String.format(Locale.getDefault(), "%02d/%02d/%04d", selectedDayOfMonth, selectedMonth + 1, selectedYear);
+                etNewDate.setText(formattedDate);
+            }
+        }, year, month, dayOfMonth);
+
+        // Afficher le DatePickerDialog
+        datePickerDialog.show();
+    }
     public void onAddItem(View v) {
         EditText etNewItem = findViewById(R.id.etNewItem);
         EditText etNewDate = findViewById(R.id.etNewDate);
