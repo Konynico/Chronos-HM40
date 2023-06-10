@@ -28,28 +28,22 @@
             android:name=".ScheduleActivity"
             android:exported="false" />
         <activity
+            android:name=".ShowEvent"
+            android:exported="false"/>
+        <activity
+            android:name=".ScheduleActivity"
+            android:exported="false"/>
+        <activity
             android:name=".AddCourseActivity"
             android:exported="false" />
         <activity
             android:name=".Event"
             android:exported="false" />
         <activity
-            android:name=".EventAdapter"
-            android:exported="false" />
-        <activity
-            android:name=".EventDatabaseHelper"
-            android:exported="false" />
-        <activity
             android:name=".AddEventActivity"
             android:exported="false" />
         <activity
-            android:name=".EventListActivity"
-            android:exported="false" />
-        <activity
             android:name=".TodoList"
-            android:exported="false" />
-        <activity
-            android:name=".CreateEvenement"
             android:exported="false" />
         <activity
             android:name=".CalendarActivity"
