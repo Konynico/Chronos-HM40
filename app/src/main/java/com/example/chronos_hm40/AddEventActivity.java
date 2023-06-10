@@ -49,8 +49,8 @@ public class AddEventActivity extends AppCompatActivity {
         Button buttonSelectDate = findViewById(R.id.buttonSelectDate);
         TextView textViewDate = findViewById(R.id.textViewDate);
 
-        eventFile = CalendarActivity.getFile();
-        events = CalendarActivity.getEvents();
+        eventFile = MainActivity.getFile();
+        events = MainActivity.getEvents();
 
         eventsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, events) {
             @Override
@@ -135,7 +135,7 @@ public class AddEventActivity extends AppCompatActivity {
 
 
         // Créer un SpannableString avec la couleur sélectionnée
-        String newEvent = title + "\n" + description + "\n" + color + "\n" + date;
+        String newEvent = date + "\n" + title + "\n" + description + "\n" + color;
 
         events.add(0, newEvent);
         eventsAdapter.notifyDataSetChanged();

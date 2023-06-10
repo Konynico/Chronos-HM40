@@ -16,10 +16,6 @@ public class CalendarActivity extends AppCompatActivity {
 
     private CalendarView calendarView;
 
-    private static ArrayList<String> events;
-
-    private static File eventFile;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,26 +33,5 @@ public class CalendarActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        eventFile = new File(getFilesDir(), "event.csv");
-        events = new ArrayList<>();
-    }
-
-    public void onButtonClickCalendar(View view) {
-        // Créer une nouvelle intention pour l'activité que vous souhaitez ouvrir
-        Intent intent = new Intent(this, AddEventActivity.class);
-
-        // Démarrer l'activité en utilisant cette intention
-        startActivity(intent);
-        //finish();
-    }
-
-    public static ArrayList<String> getEvents() {
-        return events;
-    }
-
-    public static File getFile()
-    {
-        return eventFile;
     }
 }

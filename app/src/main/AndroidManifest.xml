@@ -37,9 +37,6 @@
             android:name=".TodoList"
             android:exported="false" />
         <activity
-            android:name=".CreateEvenement"
-            android:exported="false" />
-        <activity
             android:name=".CalendarActivity"
             android:exported="true" />
         <activity

@@ -4,16 +4,16 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 public class Event {
+    private String date;
     private String title;
     private String description;
     private int color;
-    private String date;
 
-    public Event(String title, String description, int color, String date) {
+    public Event(String date, String title, String description, int color) {
+        this.date = date;
         this.title = title;
         this.description = description;
         this.color = color;
-        this.date = date;
     }
 
     public String getTitle() {

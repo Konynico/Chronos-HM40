@@ -12,9 +12,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.File;
 import java.nio.file.attribute.AclEntry;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static ArrayList<String> events;
+
+    private static File eventFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         setContentView(R.layout.activity_main);
 
+        eventFile = new File(getFilesDir(), "event.csv");
+        events = new ArrayList<>();
     }
 
     public  void onChronoClick(View view){
@@ -48,5 +56,20 @@ public class MainActivity extends AppCompatActivity {
     public void onAddCourseClick(View view){
         Intent intent = new Intent(this, AddCourseActivity.class);
         startActivity(intent);
+    }
+
+    public void onAddEventClick(View view)
+    {
+        Intent intent = new Intent(this, AddEventActivity.class);
+        startActivity(intent);
+    }
+
+    public static ArrayList<String> getEvents() {
+        return events;
+    }
+
+    public static File getFile()
+    {
+        return eventFile;
     }
 }

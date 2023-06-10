@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layout"
     tools:context=".MainActivity">
 
     <!-- Vue avec fond bleu qui occupe 25% de la hauteur de l'écran -->
@@ -15,8 +15,8 @@
         android:background="@android:color/holo_blue_light"
         app:layout_constraintBottom_toTopOf="@+id/whiteView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHeight_percent="0.15"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="UnknownIdInLayout" />
 
     <!-- Titre de la vue -->
@@ -41,8 +41,8 @@
         android:id="@+id/editTextTitle"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginTop="12dp"
-        android:hint="Titre du cours"
+        android:layout_marginTop="32dp"
+        android:hint="Titre de l'évènement"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -54,7 +54,7 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
-        android:hint="Sous-titre du cours"
+        android:hint="Description"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -63,47 +63,52 @@
 
     <Button
         android:id="@+id/buttonSelectDate"
-        android:layout_width="0dp"
+        android:layout_width="190dp"
         android:layout_height="48dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@android:color/holo_blue_light"
         android:text="Sélectionner une date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextDescription"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textViewDate"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="189dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center_vertical"
         android:text="Date      JJ/MM/AAAA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/buttonSelectDate"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
+
+    <Button
+        android:id="@+id/buttonColor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:hint="Couleur de l'évènement"
+        android:onClick="onAddEventClick"
+        android:textColorHint="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonSelectDate" />
 
     <Button
-        android:id="@+id/buttonColor"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:backgroundTint="@android:color/holo_blue_bright"
-        android:hint="Couleur de l'évènement"
-        android:onClick="onAddEventClick"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDate" />
-
-    <Button
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="108dp"
+        android:backgroundTint="@android:color/holo_blue_light"
         android:text="Ajouter l'évènement"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonColor" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonColor"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

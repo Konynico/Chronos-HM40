@@ -32,8 +32,8 @@ public class ShowEvent extends AppCompatActivity {
         setContentView(R.layout.data_event);
 
         lvEvents = findViewById(R.id.lvEvents);
-        events = CalendarActivity.getEvents();
-        eventFile = CalendarActivity.getFile();
+        events = MainActivity.getEvents();
+        eventFile = MainActivity.getFile();
 
         readEvents();
 
@@ -52,6 +52,8 @@ public class ShowEvent extends AppCompatActivity {
     }
 
     private void readEvents() {
+        events.clear(); // Vide la liste events avant de lire les événements
+
         try {
             FileReader fileReader = new FileReader(eventFile);
             CSVReader csvReader = new CSVReader(fileReader);
@@ -69,6 +71,7 @@ public class ShowEvent extends AppCompatActivity {
             throw new RuntimeException(e);
         }
     }
+
 
     public  void onChronoClick(View view){
         Intent intent = new Intent(this, MainActivity.class);
