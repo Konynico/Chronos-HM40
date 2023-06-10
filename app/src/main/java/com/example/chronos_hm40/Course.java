@@ -4,7 +4,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "courses")
-public class Course {
+public class Course implements Comparable<Course> {
     @PrimaryKey(autoGenerate = true)
     private Integer id;
 
@@ -31,6 +31,12 @@ public class Course {
         this.dateEnd = dateEnd;
     }
 
+    @Override
+    public int compareTo(Course otherCourse) {
+        // Comparez les horaires des cours
+        // Utilisez les horaires de début pour le tri
+        return this.getHourBegin().compareTo(otherCourse.getHourBegin());
+    }
     public String getTitle() {
         return title;
     }
