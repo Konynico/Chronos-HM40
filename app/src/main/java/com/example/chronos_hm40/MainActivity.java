@@ -58,6 +58,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onDeleteCourseClick(View view){
+        Intent intent = new Intent(this, DeleteCourseActivity.class);
+        startActivity(intent);
+    }
+
     public void onAddEventClick(View view)
     {
         Intent intent = new Intent(this, AddEventActivity.class);
