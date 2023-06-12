@@ -62,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextTitle" />
 
     <Button
-        android:id="@+id/buttonSelectDate"
+        android:id="@+id/editButtonSelectDate"
         android:layout_width="190dp"
         android:layout_height="48dp"
         android:layout_marginTop="40dp"
@@ -73,7 +73,7 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/textViewDate"
+        android:id="@+id/editTextViewDate"
         android:layout_width="189dp"
         android:layout_height="46dp"
         android:layout_marginStart="4dp"
@@ -82,11 +82,11 @@
         android:text="Date      JJ/MM/AAAA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/buttonSelectDate"
+        app:layout_constraintStart_toEndOf="@+id/editButtonSelectDate"
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
 
     <Button
-        android:id="@+id/buttonColor"
+        android:id="@+id/editButtonColor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="112dp"
@@ -97,7 +97,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSelectDate" />
+        app:layout_constraintTop_toBottomOf="@+id/editButtonSelectDate" />
 
     <Button
         android:id="@+id/modifyButton"
@@ -107,7 +107,7 @@
         android:backgroundTint="@android:color/holo_blue_light"
         android:text="Modifier l'évènement"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonColor"
+        app:layout_constraintTop_toBottomOf="@+id/editButtonColor"
         tools:ignore="MissingConstraints" />
 
     <Button
@@ -119,6 +119,6 @@
         android:backgroundTint="@android:color/holo_blue_light"
         android:text="Supprimer l'évènement"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonColor" />
+        app:layout_constraintTop_toBottomOf="@+id/editButtonColor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

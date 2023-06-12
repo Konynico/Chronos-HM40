@@ -30,7 +30,6 @@ import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class AddEventActivity extends AppCompatActivity {
 
-    ConstraintLayout mLayout;
     int mDefaultColor;
     Button mButton;
     Button addButton;
@@ -90,7 +89,6 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
-        mLayout = findViewById(R.id.layout);
         mDefaultColor = ContextCompat.getColor(AddEventActivity.this, R.color.colorPrimary);
         mButton = findViewById(R.id.buttonColor);
         mButton.setOnClickListener(new View.OnClickListener() {
