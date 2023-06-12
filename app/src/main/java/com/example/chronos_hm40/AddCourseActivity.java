@@ -176,7 +176,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Pas besoin de cette méthode pour notre cas
+                checkFieldsNotEmpty();
             }
         });
         editTextHourEnd.addTextChangedListener(new TextWatcher() {
@@ -193,7 +193,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                // Pas besoin de cette méthode pour notre cas
+                checkFieldsNotEmpty();
             }
         });
     }
@@ -235,17 +235,59 @@ public class AddCourseActivity extends AppCompatActivity {
         String dateBegin = editTextDateBegin.getText().toString();
         String dateEnd = editTextDateEnd.getText().toString();
 
+        // Récupérez la date de départ sélectionnée par l'utilisateur
+        int dayOfWeek;
+
+        switch (day) {
+            case "Lundi":
+                dayOfWeek = Calendar.MONDAY;
+                break;
+            case "Mardi":
+                dayOfWeek = Calendar.TUESDAY;
+                break;
+            case "Mercredi":
+                dayOfWeek = Calendar.WEDNESDAY;
+                break;
+            case "Jeudi":
+                dayOfWeek = Calendar.THURSDAY;
+                break;
+            case "Vendredi":
+                dayOfWeek = Calendar.FRIDAY;
+                break;
+            case "Samedi":
+                dayOfWeek = Calendar.SATURDAY;
+                break;
+            case "Dimanche":
+                dayOfWeek = Calendar.SUNDAY;
+                break;
+            default:
+                // Cas où le jour choisi n'est pas valide, vous pouvez gérer cela en conséquence
+                // Par exemple, afficher un message d'erreur ou prendre une action par défaut.
+                return;
+        }
+        // Parsez la date de départ en objet Calendar
+        Calendar startDate = parseCalendar(dateBegin);
+
+        // Vérifiez si la date de départ est déjà un mercredi
+        if (startDate.get(Calendar.DAY_OF_WEEK) != dayOfWeek) {
+            // Recherchez le mercredi suivant à partir de la date de départ
+            while (startDate.get(Calendar.DAY_OF_WEEK) != dayOfWeek) {
+                startDate.add(Calendar.DAY_OF_WEEK, 1);
+            }
+        }
+
+        // Formattez la nouvelle date de départ pour l'affichage
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+        String adjustedStartDate = sdf.format(startDate.getTime());
+
+        // Affichez la nouvelle date de départ
+        dateBegin = removeQuotes(adjustedStartDate);
+
         // Créez une instance de la classe Course avec les données du formulaire
         Course course = new Course(title, subtitle, color, day, frequency, hourBegin, hourEnd, dateBegin, dateEnd);
+
         writeCourseToCSV(course);
 
-        // Ajoutez la course à la base de données en utilisant Room
-        //appDatabase.courseDao().insertCourse(course);
-
-        // Affichez un message ou effectuez toute autre action après avoir ajouté la course à la base de données
-        //Toast.makeText(AddCourseActivity.this, "Plage horaire ajoutée avec succès", Toast.LENGTH_SHORT).show();
-
-        // Fermez l'activité AddCourseActivity et retournez à l'activité précédente
         finish();
     }
 
@@ -268,18 +310,6 @@ public class AddCourseActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(AddCourseActivity.this, "Erreur lors de l'ajout des données au fichier CSV", Toast.LENGTH_SHORT).show();
-        }
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-                // Traitez chaque ligne du fichier CSV ici
-                Toast.makeText(AddCourseActivity.this, line , Toast.LENGTH_SHORT).show();
-
-            }
-            br.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
     public void showDatePickerDialog1(View view) {
@@ -362,8 +392,12 @@ public class AddCourseActivity extends AppCompatActivity {
         boolean fieldsNotEmpty = !TextUtils.isEmpty(editTextField4.getText()) && !TextUtils.isEmpty(editTextField3.getText()) && !TextUtils.isEmpty(editTextField1.getText()) && !TextUtils.isEmpty(editTextField2.getText());
         validateButton.setEnabled(fieldsNotEmpty);
     }
-
-
+    private String removeQuotes(String value) {
+        if (value.startsWith("\"") && value.endsWith("\"")) {
+            return value.substring(1, value.length() - 1);
+        }
+        return value;
+    }
 
 
 
