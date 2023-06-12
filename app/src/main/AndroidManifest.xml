@@ -34,9 +34,6 @@
             android:name=".ShowEvent"
             android:exported="false"/>
         <activity
-            android:name=".ScheduleActivity"
-            android:exported="false"/>
-        <activity
             android:name=".AddCourseActivity"
             android:exported="false" />
         <activity
@@ -50,7 +47,7 @@
             android:exported="false" />
         <activity
             android:name=".CalendarActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

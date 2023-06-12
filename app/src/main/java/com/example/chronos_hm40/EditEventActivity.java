@@ -201,4 +201,9 @@ public class EditEventActivity extends AppCompatActivity {
         });
         colorPicker.show();
     }
+
+    public  void onChronoClick(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }

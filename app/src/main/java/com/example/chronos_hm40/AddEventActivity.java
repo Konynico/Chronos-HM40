@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -167,5 +168,10 @@ public class AddEventActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         writeEvents();
+    }
+
+    public  void onChronoClick(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
