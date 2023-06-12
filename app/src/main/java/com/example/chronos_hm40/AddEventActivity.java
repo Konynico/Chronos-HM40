@@ -165,4 +165,9 @@ public class AddEventActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    protected void onPause() {
+        super.onPause();
+        writeEvents();
+    }
 }

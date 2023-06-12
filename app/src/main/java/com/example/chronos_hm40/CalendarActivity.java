@@ -27,9 +27,8 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 Intent intent = new Intent(CalendarActivity.this, ShowEvent.class);
-                intent.putExtra("year", year);
-                intent.putExtra("month", month);
-                intent.putExtra("dayOfMonth", dayOfMonth);
+                String date = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year);
+                intent.putExtra("selectedDate", date);
                 startActivity(intent);
             }
         });

@@ -28,6 +28,9 @@
             android:name=".ScheduleActivity"
             android:exported="false" />
         <activity
+            android:name="EditEventActivity"
+            android:exported="false"/>
+        <activity
             android:name=".ShowEvent"
             android:exported="false"/>
         <activity
