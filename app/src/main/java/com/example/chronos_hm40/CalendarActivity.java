@@ -33,4 +33,10 @@ public class CalendarActivity extends AppCompatActivity {
             }
         });
     }
+
+    public  void onChronoClick(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }

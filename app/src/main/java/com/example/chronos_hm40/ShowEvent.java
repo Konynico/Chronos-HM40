@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -62,20 +63,32 @@ public class ShowEvent extends AppCompatActivity {
             }
         }
 
-        eventsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, filteredEvents) {
+        eventsAdapter = new ArrayAdapter<String>(this, R.layout.data_form_event, R.id.textViewTitle, filteredEvents) {
             @Override
-            public View getView(int position, View convertView, android.view.ViewGroup parent) {
+            public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
+
                 String event = filteredEvents.get(position);
                 String[] parts = event.split("\n");
-                TextView textView = view.findViewById(android.R.id.text1);
-                textView.setText(parts[1] + "\n" + parts[2]);
+
+                TextView textViewTitle = view.findViewById(R.id.textViewTitle);
+                TextView textViewDescription = view.findViewById(R.id.textViewDescription);
+                TextView textViewTime = view.findViewById(R.id.textViewTime);
+
+                textViewTitle.setText(parts[1]);
+                textViewDescription.setText(parts[2]);
+                textViewTime.setText(parts[4]);
+
                 int color = Integer.parseInt(parts[3]);
-                textView.setTextColor(color);
+                textViewTitle.setTextColor(color);
+                textViewDescription.setTextColor(color);
+                textViewTime.setTextColor(color);
+
                 return view;
             }
         };
         lvEvents.setAdapter(eventsAdapter);
+
 
         lvEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -102,7 +115,7 @@ public class ShowEvent extends AppCompatActivity {
             List<String[]> csvData = csvReader.readAll();
 
             for (String[] row : csvData) {
-                String event = row[0] + "\n" + row[1] + "\n" + row[2] + "\n" + row[3];
+                String event = row[0] + "\n" + row[1] + "\n" + row[2] + "\n" + row[3] + "\n" + row[4];
                 events.add(event);
             }
 
