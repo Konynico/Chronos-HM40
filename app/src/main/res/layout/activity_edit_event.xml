@@ -42,11 +42,11 @@
         android:id="@+id/editTextTitle"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:hint="Titre de l'évènement"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/blueView" />
 
@@ -85,6 +85,30 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/editButtonSelectDate"
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
+
+    <Button
+        android:id="@+id/editButtonSelectTime"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:text="Sélectionner une heure"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextViewDate"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/editTextViewTime"
+        android:layout_width="189dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:text="Heure      HH:MM"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/editButtonSelectTime"
+        app:layout_constraintTop_toBottomOf="@+id/editTextViewDate" />
 
     <Button
         android:id="@+id/editButtonColor"

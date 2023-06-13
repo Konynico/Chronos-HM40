@@ -15,16 +15,16 @@
         android:background="@android:color/holo_blue_light"
         app:layout_constraintBottom_toTopOf="@+id/whiteView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHeight_percent="0.15"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="UnknownIdInLayout" />
 
     <TextView
-        android:onClick="onChronoClick"
-        android:fontFamily="@font/inter_font"
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_font"
+        android:onClick="onChronoClick"
         android:text="AJOUTER UN EVENEMENT"
         android:textColor="@android:color/white"
         android:textSize="30sp"
@@ -87,10 +87,35 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
 
     <Button
+        android:id="@+id/buttonSelectTime"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:text="Sélectionner une heure"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDate"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="189dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:text="Heure      HH:MM"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/buttonSelectTime"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDate" />
+
+
+    <Button
         android:id="@+id/buttonColor"
-        android:layout_width="0dp"
+        android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="56dp"
         android:backgroundTint="@android:color/holo_blue_light"
         android:hint="Couleur de l'évènement"
         android:onClick="onAddEventClick"
@@ -98,7 +123,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSelectDate" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonSelectTime" />
 
     <Button
         android:id="@+id/addButton"
