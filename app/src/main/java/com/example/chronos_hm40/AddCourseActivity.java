@@ -26,6 +26,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Time;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -285,10 +287,12 @@ public class AddCourseActivity extends AppCompatActivity {
 
         // Créez une instance de la classe Course avec les données du formulaire
         Course course = new Course(title, subtitle, color, day, frequency, hourBegin, hourEnd, dateBegin, dateEnd);
-
-        writeCourseToCSV(course);
-
-        finish();
+        if(!checkExistence(course)){
+            Toast.makeText(AddCourseActivity.this, "Plage horaire déjà existante sur ce créneau", Toast.LENGTH_SHORT).show();
+        }else{
+            writeCourseToCSV(course);
+            finish();
+        }
     }
 
 
@@ -399,6 +403,159 @@ public class AddCourseActivity extends AppCompatActivity {
         return value;
     }
 
+    private boolean checkExistence(Course course){
+        try {
+            File csvFile = new File(getExternalFilesDir(null), "data_schedule_test.csv");
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFile));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                // Divisez la ligne CSV en valeurs individuelles
+                String[] values = line.split(",");
 
+                // Récupérez les valeurs individuelles
+                String existingDay = removeQuotes(values[3]);
+                String existingFrequency = removeQuotes(values[4]);
+                String existingHourBegin = removeQuotes(values[5]);
+                String existingHourEnd = removeQuotes(values[6]);
+                String existingDateBegin = removeQuotes(values[7]);
+                String existingDateEnd = removeQuotes(values[8]);
+
+                Calendar courseStartDate = Calendar.getInstance();
+                courseStartDate.setTime(parseDate(course.getDateBegin()));
+                Calendar existingDate = Calendar.getInstance();
+                existingDate.setTime(parseDate(existingDateBegin));
+
+
+                int daysBetween = daysBetween(existingDate, courseStartDate);
+                if(!isAfter(course.getDateBegin(),existingDateEnd)){
+                    if(isTimeOverlap(course.getHourBegin(), course.getHourEnd(), existingHourBegin,existingHourEnd)) {
+                        if(course.getFrequency().equalsIgnoreCase("Quotidienne")){
+                            return false;
+                        }else if (course.getFrequency().equalsIgnoreCase("Unique")) {
+                            if(existingFrequency.equalsIgnoreCase("Quotidienne")){
+                                return false;
+                            }else if(existingFrequency.equalsIgnoreCase("Unique") && course.getDay().equalsIgnoreCase(existingDay)){
+                                return false;
+                            }else if(existingFrequency.equalsIgnoreCase("Hebdomadaire") && course.getDay().equalsIgnoreCase(existingDay)) {
+                                return false;
+                            }else if(existingFrequency.equalsIgnoreCase("Bimensuelle") && course.getDay().equalsIgnoreCase(existingDay) && daysBetween%14==0) {
+                                return false;
+                            }else if(existingFrequency.equalsIgnoreCase("Mensuelle") && course.getDay().equalsIgnoreCase(existingDay) && daysBetween%28==0) {
+                                return false;
+                            }
+                        }else if(course.getFrequency().equalsIgnoreCase("Hebdomadaire")){
+                            if(existingFrequency.equalsIgnoreCase("Unique") && course.getDay().equalsIgnoreCase(existingDay)){
+                                return false;
+                            }else if(existingFrequency.equalsIgnoreCase("Quotidienne")){
+                                return false;
+                            } else if(existingFrequency.equalsIgnoreCase("Hebdomadaire") && course.getDay().equalsIgnoreCase(existingDay)) {
+                                return false;
+                            } else if (existingFrequency.equalsIgnoreCase("Bimensuelle") && course.getDay().equalsIgnoreCase(existingDay)) {
+                                return false;
+                            }else if(existingFrequency.equalsIgnoreCase("Mensuelle")&& course.getDay().equalsIgnoreCase(existingDay)){
+                                return false;
+                            }
+                        }else if(course.getFrequency().equalsIgnoreCase("Bimensuelle")){
+                            if(existingFrequency.equalsIgnoreCase("Unique") && course.getDay().equalsIgnoreCase(existingDay) && daysBetween%14==0){
+                                return false;
+                            }else if(existingFrequency.equalsIgnoreCase("Quotidienne")){
+                                return false;
+                            }else if(existingFrequency.equalsIgnoreCase("Hebdomadaire") && course.getDay().equalsIgnoreCase(existingDay)){
+                                return false;
+                            }else if(existingFrequency.equalsIgnoreCase("Bimensuelle") && course.getDay().equalsIgnoreCase(existingDay) && daysBetween%14==0){
+                                return false;
+                            }else if(existingFrequency.equalsIgnoreCase("Mensuelle") && course.getDay().equalsIgnoreCase(existingDay) && daysBetween%14==0){
+                                return false;
+                            }
+                        }else if(course.getFrequency().equalsIgnoreCase("Mensuelle")){
+                            if(existingFrequency.equalsIgnoreCase("Unique") && course.getDay().equalsIgnoreCase(existingDay) && daysBetween%28==0){
+                                return false;
+                            }else if(existingFrequency.equalsIgnoreCase("Quotidienne")){
+                                return false;
+                            }else if(existingFrequency.equalsIgnoreCase("Hebdomadaire") && course.getDay().equalsIgnoreCase(existingDay)){
+                                return false;
+                            }else if(existingFrequency.equalsIgnoreCase("Bimensuelle") && course.getDay().equalsIgnoreCase(existingDay) && daysBetween%14==0){
+                                return false;
+                            }else if(existingFrequency.equalsIgnoreCase("Mensuelle") && course.getDay().equalsIgnoreCase(existingDay) && daysBetween%14==0){
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            bufferedReader.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Pas de chevauchement d'horaires ou de fréquences
+        return true;
+    }
+
+    private boolean isTimeOverlap(String start1, String end1, String start2, String end2) {
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        try {
+            Date startTime1 = timeFormat.parse(start1);
+            Date endTime1 = timeFormat.parse(end1);
+            Date startTime2 = timeFormat.parse(start2);
+            Date endTime2 = timeFormat.parse(end2);
+
+            if(startTime1.before(endTime2) && startTime1.after(startTime2) && endTime1.after(endTime2)){
+                return true;
+            }else if(startTime1.before(startTime2) && endTime1.after(startTime1) && endTime1.before(endTime2)){
+                return true;
+            }else if (startTime1.before(startTime2) && endTime1.after(endTime2)) {
+                return true;
+            }else if(startTime1.after(startTime2) && endTime1.before(endTime2)){
+                return true;
+            }else  if (startTime1.equals(startTime2) || endTime1.equals(endTime2)) {
+                return true;
+            }
+
+            return false;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private Date parseDate(String dateString) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+            return sdf.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private Calendar removeTimeFromCalendar(Calendar calendar) {
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
+    }
+    private int daysBetween(Calendar startDate, Calendar endDate) {
+        long startMillis = removeTimeFromCalendar(startDate).getTimeInMillis();
+        long endMillis = removeTimeFromCalendar(endDate).getTimeInMillis();
+        long differenceMillis = endMillis - startMillis;
+        return (int) (differenceMillis / (24 * 60 * 60 * 1000));
+    }
+    private boolean isAfter(String date1, String date2) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+        try {
+            Date d1 = dateFormat.parse(date1);
+            Date d2 = dateFormat.parse(date2);
+
+            return d1.after(d2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // En cas d'erreur de parsing, renvoie false par défaut
+        return false;
+    }
 
 }
+
