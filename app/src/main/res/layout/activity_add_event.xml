@@ -26,7 +26,7 @@
         android:onClick="onChronoClick"
         android:text="AJOUTER UN EVENEMENT"
         android:textColor="@android:color/white"
-        android:textSize="30sp"
+        android:textSize="26sp"
         android:textStyle="bold"
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="@+id/blueView"
@@ -54,9 +54,9 @@
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
-        android:textColor="@color/lightgrey"
         android:hint="Description"
         android:inputType="text"
+        android:textColor="@color/lightgrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +64,7 @@
 
     <Button
         android:id="@+id/buttonSelectDate"
-        android:layout_width="190dp"
+        android:layout_width="235dp"
         android:layout_height="48dp"
         android:layout_marginTop="40dp"
         android:backgroundTint="@android:color/holo_blue_light"
@@ -75,40 +75,34 @@
 
     <TextView
         android:id="@+id/textViewDate"
-        android:layout_width="141dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="4dp"
+        android:layout_width="145dp"
+        android:layout_height="48dp"
         android:layout_marginTop="40dp"
         android:gravity="center_vertical"
         android:hint="JJ/MM/AAAA"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.657"
-        app:layout_constraintStart_toEndOf="@+id/buttonSelectDate"
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
+
 
     <Button
         android:id="@+id/buttonSelectTime"
-        android:layout_width="200dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="252dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@android:color/holo_blue_light"
         android:text="Sélectionner une heure"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewDate"
         tools:ignore="MissingConstraints" />
 
-
     <TextView
         android:id="@+id/textViewTime"
-        android:layout_width="142dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="126dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="8dp"
         android:gravity="center_vertical"
         android:hint="HH:MM"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.571"
-        app:layout_constraintStart_toEndOf="@+id/buttonSelectTime"
         app:layout_constraintTop_toBottomOf="@+id/textViewDate" />
 
     <Button

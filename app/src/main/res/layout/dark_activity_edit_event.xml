@@ -5,29 +5,29 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/darkgrey">
+    android:background="@color/darkgrey"
+    tools:context=".MainActivity">
 
-<!-- Bandeau bleu -->
+    <!-- Bandeau bleu -->
     <View
         android:id="@+id/blueView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHeight_percent="0.15"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="UnknownIdInLayout" />
 
     <TextView
-        android:onClick="onChronoClick"
-        android:fontFamily="@font/inter_font"
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_font"
+        android:onClick="onChronoClick"
         android:text="MODIFIER UN EVENEMENT"
         android:textColor="@color/lightgrey"
-        android:textSize="30sp"
+        android:textSize="26sp"
         android:textStyle="bold"
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="@+id/blueView"
@@ -45,8 +45,8 @@
         android:layout_marginTop="16dp"
         android:hint="Titre de l'évènement"
         android:inputType="text"
-        android:textColorHint="@color/lightgrey"
         android:textColor="@color/lightgrey"
+        android:textColorHint="@color/lightgrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,8 +59,8 @@
         android:layout_marginTop="12dp"
         android:hint="Description"
         android:inputType="text"
-        android:textColorHint="@color/lightgrey"
         android:textColor="@color/lightgrey"
+        android:textColorHint="@color/lightgrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,11 +68,11 @@
 
     <Button
         android:id="@+id/editButtonSelectDate"
-        android:layout_width="190dp"
-        android:layout_height="48dp"
+        android:layout_width="216dp"
+        android:layout_height="46dp"
         android:layout_marginTop="40dp"
-        android:text="Sélectionner une date"
         android:backgroundTint="@color/lightgrey"
+        android:text="Sélectionner une date"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription"
@@ -80,44 +80,38 @@
 
     <TextView
         android:id="@+id/editTextViewDate"
-        android:layout_width="159dp"
+        android:layout_width="154dp"
         android:layout_height="44dp"
-        android:layout_marginStart="4dp"
         android:layout_marginTop="40dp"
         android:gravity="center_vertical"
         android:hint="JJ/MM/AAAA"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColorHint="@color/lightgrey"
         android:textColor="@color/lightgrey"
-        app:layout_constraintHorizontal_bias="0.448"
-        app:layout_constraintStart_toEndOf="@+id/editButtonSelectDate"
+        android:textColorHint="@color/lightgrey"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
 
     <Button
         android:id="@+id/editButtonSelectTime"
-        android:layout_width="200dp"
-        android:layout_height="48dp"
+        android:layout_width="242dp"
+        android:layout_height="45dp"
         android:layout_marginTop="16dp"
-        android:text="Sélectionner une heure"
-        app:layout_constraintStart_toStartOf="parent"
         android:backgroundTint="@color/lightgrey"
+        android:text="Sélectionner une heure"
         android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextViewDate"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/editTextViewTime"
-        android:layout_width="158dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="4dp"
+        android:layout_width="126dp"
+        android:layout_height="45dp"
         android:layout_marginTop="16dp"
         android:gravity="center_vertical"
         android:hint="HH:MM"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColorHint="@color/lightgrey"
         android:textColor="@color/lightgrey"
-        app:layout_constraintHorizontal_bias="0.36"
-        app:layout_constraintStart_toEndOf="@+id/editButtonSelectTime"
+        android:textColorHint="@color/lightgrey"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextViewDate" />
 
     <Button
@@ -142,8 +136,8 @@
         android:layout_marginTop="116dp"
         android:layout_marginEnd="72dp"
         android:backgroundTint="@color/lightgrey"
-        android:textColor="@color/black"
         android:text="Modifier"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editButtonColor"
@@ -156,8 +150,8 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="116dp"
         android:backgroundTint="@color/lightgrey"
-        android:textColor="@color/black"
         android:text="Supprimer"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/modifyButton"
         app:layout_constraintHorizontal_bias="0.596"
