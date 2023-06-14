@@ -19,13 +19,13 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:onClick="onChronoClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter_font"
+        android:onClick="onChronoClick"
         android:text="EVENEMENTS"
         android:textColor="@android:color/white"
-        android:textSize="50sp"
+        android:textSize="45sp"
         android:textStyle="bold"
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="@+id/blueView"
@@ -35,14 +35,16 @@
 
     <ListView
         android:id="@+id/lvEvents"
-        android:layout_width="416dp"
-        android:layout_height="match_parent"
+        android:layout_width="413dp"
+        android:layout_height="623dp"
         android:layout_above="@+id/blueView"
         android:layout_below="@+id/blueView"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blueView"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
