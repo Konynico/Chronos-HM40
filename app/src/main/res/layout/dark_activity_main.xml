@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@android:color/darker_gray">
+    android:background="@color/darkgrey">
 
     <!-- Vue avec fond bleu qui occupe 25% de la hauteur de l'écran -->
 
@@ -56,6 +56,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Consulter"
                 android:textSize="30sp"
+                android:textColor="@color/lightgrey"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/blueView" />
 
@@ -91,6 +92,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="12dp"
                         android:gravity="center"
+                        android:textColor="@color/lightgrey"
                         android:text="Emploi du temps"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -123,6 +125,7 @@
                         android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:text="ToDo List"
+                        android:textColor="@color/lightgrey"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 </LinearLayout>
@@ -164,6 +167,7 @@
                         android:layout_marginTop="12dp"
                         android:gravity="center"
                         android:text="Calendrier"
+                        android:textColor="@color/lightgrey"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 </LinearLayout>
@@ -176,6 +180,7 @@
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="36dp"
                 android:text="Ajouter"
+                android:textColor="@color/lightgrey"
                 android:textSize="30sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/consulterBouton1" />
@@ -213,6 +218,7 @@
                         android:layout_marginTop="6dp"
                         android:gravity="center"
                         android:text="Plage Horaire"
+                        android:textColor="@color/lightgrey"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 </LinearLayout>
@@ -244,6 +250,7 @@
                         android:layout_marginTop="6dp"
                         android:gravity="center"
                         android:text="Evenement"
+                        android:textColor="@color/lightgrey"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
                 </LinearLayout>
             </LinearLayout>
@@ -255,6 +262,7 @@
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="36dp"
                 android:text="Supprimer"
+                android:textColor="@color/lightgrey"
                 android:textSize="30sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/consulterBouton1" />
@@ -292,6 +300,7 @@
                         android:layout_marginTop="8dp"
                         android:gravity="center"
                         android:text="Plage Horaire"
+                        android:textColor="@color/lightgrey"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 </LinearLayout>
@@ -304,6 +313,7 @@
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="36dp"
                 android:text="Personnaliser"
+                android:textColor="@color/lightgrey"
                 android:textSize="30sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Supprimer" />
@@ -331,7 +341,7 @@
                         android:layout_width="73dp"
                         android:layout_height="56dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/changement_mode" />
+                        android:src="@drawable/switch_mode" />
 
                     <TextView
                         android:id="@+id/textView1000"
@@ -341,6 +351,7 @@
                         android:layout_marginTop="8dp"
                         android:gravity="center"
                         android:text="Changer mode"
+                        android:textColor="@color/lightgrey"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 </LinearLayout>

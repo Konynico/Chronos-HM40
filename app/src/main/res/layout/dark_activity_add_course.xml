@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layout">
+    android:id="@+id/layout"
+    android:background="@color/darkgrey">
 
     <!-- Vue avec fond bleu qui occupe 25% de la hauteur de l'écran -->
     <View
         android:id="@+id/blueView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/holo_blue_light"
+        android:background="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/whiteView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="AJOUTER PLAGE HORAIRE"
-        android:textColor="@android:color/white"
+        android:textColor="@color/lightgrey"
         android:textSize="24sp"
         android:textStyle="bold"
         android:typeface="sans"
@@ -34,8 +35,6 @@
         app:layout_constraintStart_toStartOf="@+id/blueView"
         app:layout_constraintTop_toTopOf="@+id/blueView" />
 
-    <!-- Champs de saisie pour les détails du cours -->
-
 
     <EditText
         android:id="@+id/editTextTitle"
@@ -43,6 +42,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="12dp"
         android:hint="Titre du cours"
+        android:textColor="@color/lightgrey"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
