@@ -33,6 +33,9 @@ public class CalendarActivity extends AppCompatActivity {
     private ListView lvEvents2;
     private File eventFile;
 
+    private boolean isDarkModeOn;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,10 +44,13 @@ public class CalendarActivity extends AppCompatActivity {
         boolean theme = intent.getBooleanExtra("theme", false);
 
 
-        if (theme == true){
-            setContentView(R.layout.dark_activity_calendar);}
-        else{
-            setContentView(R.layout.activity_calendar);}
+        if (theme == true) {
+            setContentView(R.layout.dark_activity_calendar);
+            isDarkModeOn = true;
+        }else{
+            setContentView(R.layout.activity_calendar);
+            isDarkModeOn = false;
+        }
 
         lvEvents2 = findViewById(R.id.lvEvents2);
         events = MainActivity.getEvents();
@@ -166,6 +172,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     public  void onChronoClick(View view){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
         finish();
     }

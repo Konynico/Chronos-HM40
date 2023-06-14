@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/darkgrey">
 
-    <!-- Bandeau bleu -->
+<!-- Bandeau bleu -->
     <View
         android:id="@+id/blueView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/holo_blue_light"
+        android:background="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/whiteView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.15"
@@ -24,7 +25,7 @@
         android:fontFamily="@font/inter_font"
         android:onClick="onChronoClick"
         android:text="EVENEMENTS"
-        android:textColor="@android:color/white"
+        android:textColor="@color/lightgrey"
         android:textSize="45sp"
         android:textStyle="bold"
         android:typeface="sans"

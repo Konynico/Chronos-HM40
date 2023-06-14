@@ -42,6 +42,9 @@ public class ShowEvent extends AppCompatActivity {
     private ListView lvEvents;
     private File eventFile;
 
+    private boolean isDarkModeOn;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +53,13 @@ public class ShowEvent extends AppCompatActivity {
         Intent intent = getIntent();
         boolean theme = intent.getBooleanExtra("theme", false);
 
-        if (theme == true){
-            setContentView(R.layout.dark_data_event);}
-        else{
-            setContentView(R.layout.data_event);}
+        if (theme == true) {
+            setContentView(R.layout.dark_data_event);
+            isDarkModeOn = true;
+        }else{
+            setContentView(R.layout.data_event);
+            isDarkModeOn = false;
+        }
 
         lvEvents = findViewById(R.id.lvEvents);
         events = MainActivity.getEvents();
@@ -138,6 +144,8 @@ public class ShowEvent extends AppCompatActivity {
 
     public  void onChronoClick(View view){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
+        finish();
     }
 }

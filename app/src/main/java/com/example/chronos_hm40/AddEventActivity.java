@@ -44,6 +44,8 @@ public class AddEventActivity extends AppCompatActivity {
 
     private ArrayList<String> events;
 
+    private boolean isDarkModeOn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,10 +53,13 @@ public class AddEventActivity extends AppCompatActivity {
         Intent intent = getIntent();
         boolean theme = intent.getBooleanExtra("theme", false);
 
-        if (theme == true){
-            setContentView(R.layout.dark_activity_add_event);}
-        else{
-            setContentView(R.layout.activity_add_event);}
+        if (theme == true) {
+            setContentView(R.layout.dark_activity_add_event);
+            isDarkModeOn = true;
+        }else{
+            setContentView(R.layout.activity_add_event);
+            isDarkModeOn = false;
+        }
 
         Button buttonSelectDate = findViewById(R.id.buttonSelectDate);
         Button buttonSelectTime = findViewById(R.id.buttonSelectTime);
@@ -220,6 +225,8 @@ public class AddEventActivity extends AppCompatActivity {
 
     public  void onChronoClick(View view){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
+        finish();
     }
 }

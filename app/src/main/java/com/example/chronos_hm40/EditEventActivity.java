@@ -47,6 +47,9 @@ public class EditEventActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> eventsAdapter;
 
+    private boolean isDarkModeOn;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -54,10 +57,13 @@ public class EditEventActivity extends AppCompatActivity {
         Intent intent = getIntent();
         boolean theme = intent.getBooleanExtra("theme", false);
 
-        if (theme == true){
-            setContentView(R.layout.dark_activity_edit_event);}
-        else{
-            setContentView(R.layout.activity_edit_event);}
+        if (theme == true) {
+            setContentView(R.layout.dark_activity_edit_event);
+            isDarkModeOn = true;
+        }else{
+            setContentView(R.layout.activity_edit_event);
+            isDarkModeOn = false;
+        }
 
         events = MainActivity.getEvents();
         eventFile = MainActivity.getFile();
@@ -254,6 +260,8 @@ public class EditEventActivity extends AppCompatActivity {
 
     public  void onChronoClick(View view){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
+        finish();
     }
 }

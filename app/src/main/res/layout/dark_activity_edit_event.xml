@@ -5,14 +5,15 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/darkgrey">
 
-    <!-- Bandeau bleu -->
+<!-- Bandeau bleu -->
     <View
         android:id="@+id/blueView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/holo_blue_light"
+        android:background="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/whiteView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="MODIFIER UN EVENEMENT"
-        android:textColor="@android:color/white"
+        android:textColor="@color/lightgrey"
         android:textSize="30sp"
         android:textStyle="bold"
         android:typeface="sans"
@@ -45,6 +46,8 @@
         android:layout_marginTop="16dp"
         android:hint="Titre de l'évènement"
         android:inputType="text"
+        android:textColorHint="@color/lightgrey"
+        android:textColor="@color/lightgrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +60,8 @@
         android:layout_marginTop="12dp"
         android:hint="Description"
         android:inputType="text"
+        android:textColorHint="@color/lightgrey"
+        android:textColor="@color/lightgrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,8 +72,9 @@
         android:layout_width="190dp"
         android:layout_height="48dp"
         android:layout_marginTop="40dp"
-        android:backgroundTint="@android:color/holo_blue_light"
         android:text="Sélectionner une date"
+        android:backgroundTint="@color/lightgrey"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription"
         tools:ignore="MissingConstraints" />
@@ -82,6 +88,8 @@
         android:gravity="center_vertical"
         android:text="Date      JJ/MM/AAAA"
         app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/lightgrey"
+        android:textColor="@color/black"
         app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toEndOf="@+id/editButtonSelectDate"
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
@@ -91,9 +99,10 @@
         android:layout_width="200dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@android:color/holo_blue_light"
         android:text="Sélectionner une heure"
         app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/lightgrey"
+        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/editTextViewDate"
         tools:ignore="MissingConstraints" />
 
@@ -106,6 +115,7 @@
         android:gravity="center_vertical"
         android:text="Heure      HH:MM"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/lightgrey"
         app:layout_constraintHorizontal_bias="0.36"
         app:layout_constraintStart_toEndOf="@+id/editButtonSelectTime"
         app:layout_constraintTop_toBottomOf="@+id/editTextViewDate" />
@@ -131,7 +141,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="116dp"
         android:layout_marginEnd="72dp"
-        android:backgroundTint="@android:color/holo_blue_light"
+        android:backgroundTint="@color/lightgrey"
+        android:textColor="@color/black"
         android:text="Modifier"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -144,7 +155,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="116dp"
-        android:backgroundTint="@android:color/holo_blue_light"
+        android:backgroundTint="@color/lightgrey"
+        android:textColor="@color/black"
         android:text="Supprimer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/modifyButton"

@@ -27,15 +27,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        Intent intent = getIntent();
-        boolean theme = intent.getBooleanExtra("theme", false);
-        if (theme == true) {
-            setContentView(R.layout.dark_activity_main);
-            isDarkModeOn = true;
-        }else{
-            setContentView(R.layout.activity_main);
-            isDarkModeOn = false;
-        }
+        setContentView(R.layout.activity_main);
+
         eventFile = new File(getFilesDir(), "event.csv");
         events = new ArrayList<>();
     }
