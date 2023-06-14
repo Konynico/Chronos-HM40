@@ -71,22 +71,21 @@ public class ColorRectangleView extends View {
         float subtitleY = (height - subtitlePaint.descent() - subtitlePaint.ascent()) / 2f + (0.1f * height); // Remonter légèrement le sous-titre
         canvas.drawText(subtitle, subtitleX, subtitleY, subtitlePaint);
 
-        // Dessiner l'horaire de départ en bas à gauche
         Paint startTimePaint = new Paint();
         startTimePaint.setColor(Color.BLACK);
         startTimePaint.setTextSize(0.15f * 400); // Augmenter la taille de police
         startTimePaint.setTextAlign(Paint.Align.LEFT);
         float startTimeX = 0.05f * width; // Décalage vers la droite pour éviter les bords
-        float startTimeY = height - startTimePaint.descent();
+        float startTimeY = 0.17f * 600; // Décalage vers le bas
         canvas.drawText(hour_begin, startTimeX, startTimeY, startTimePaint);
 
-        // Dessiner l'horaire de fin en bas à droite
+        // Dessiner l'horaire de fin en bas à gauche
         Paint endTimePaint = new Paint();
         endTimePaint.setColor(Color.BLACK);
         endTimePaint.setTextSize(0.15f * 400); // Augmenter la taille de police
-        endTimePaint.setTextAlign(Paint.Align.RIGHT);
-        float endTimeX = width - (0.05f * width); // Décalage vers la gauche pour éviter les bords
-        float endTimeY = height - endTimePaint.descent();
+        endTimePaint.setTextAlign(Paint.Align.LEFT);
+        float endTimeX = 0.05f * width; // Décalage vers la droite pour éviter les bords
+        float endTimeY = height - 0.1f * height; // Décalage vers le haut
         canvas.drawText(hour_end, endTimeX, endTimeY, endTimePaint);
     }
 }
