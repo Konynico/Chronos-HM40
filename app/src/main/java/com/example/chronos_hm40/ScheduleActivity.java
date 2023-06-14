@@ -40,7 +40,12 @@ public class ScheduleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule);
+        Intent intent = getIntent();
+        boolean theme = intent.getBooleanExtra("theme", false);
+        if (theme == true){
+            setContentView(R.layout.dark_activity_schedule);}
+        else{
+            setContentView(R.layout.activity_schedule);}
 
         textViewSelectedDay = findViewById(R.id.textViewSelectedDay);
         currentDate = Calendar.getInstance();

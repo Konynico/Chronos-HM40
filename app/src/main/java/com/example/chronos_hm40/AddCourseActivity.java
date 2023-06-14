@@ -59,13 +59,10 @@ public class AddCourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         boolean theme = intent.getBooleanExtra("theme", false);
-        theme = true;
         if (theme == true){
             setContentView(R.layout.dark_activity_add_course);}
         else{
             setContentView(R.layout.activity_add_course);}
-
-        setContentView(R.layout.activity_add_course);
         spinnerFrequency = findViewById(R.id.spinnerFrequency);
         spinnerDay = findViewById(R.id.spinnerDay);
         frequencyAdapter = ArrayAdapter.createFromResource(this, R.array.frequency_options, android.R.layout.simple_spinner_item);

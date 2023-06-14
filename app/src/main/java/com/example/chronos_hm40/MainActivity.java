@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onScheduleClick(View view) {
         Intent intent = new Intent(this, ScheduleActivity.class);
+        intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
     }
 
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onDeleteCourseClick(View view){
         Intent intent = new Intent(this, DeleteCourseActivity.class);
+        intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
     }
 

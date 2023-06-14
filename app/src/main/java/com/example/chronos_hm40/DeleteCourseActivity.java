@@ -26,7 +26,12 @@ public class DeleteCourseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_delete_course);
+        Intent intent = getIntent();
+        boolean theme = intent.getBooleanExtra("theme", false);
+        if (theme == true){
+            setContentView(R.layout.dark_activity_delete_course);}
+        else{
+            setContentView(R.layout.activity_delete_course);}
 
         try {
             File csvFile = new File(getExternalFilesDir(null), "data_schedule_test.csv");
