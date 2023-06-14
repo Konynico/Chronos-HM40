@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -200,5 +201,9 @@ public class ScheduleActivity extends AppCompatActivity {
             e.printStackTrace();
             return -1;
         }
+    }
+    public  void onChronoClick(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

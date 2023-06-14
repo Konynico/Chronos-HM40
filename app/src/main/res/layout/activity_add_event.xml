@@ -113,7 +113,7 @@
 
     <Button
         android:id="@+id/buttonColor"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
         android:backgroundTint="@android:color/holo_blue_light"

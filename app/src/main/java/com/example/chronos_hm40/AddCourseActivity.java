@@ -7,6 +7,7 @@ import androidx.room.Room;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -556,6 +557,9 @@ public class AddCourseActivity extends AppCompatActivity {
         // En cas d'erreur de parsing, renvoie false par défaut
         return false;
     }
-
+    public  void onChronoClick(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }
 
