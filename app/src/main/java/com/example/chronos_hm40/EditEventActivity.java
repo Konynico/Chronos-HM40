@@ -5,6 +5,9 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -123,6 +126,13 @@ public class EditEventActivity extends AppCompatActivity {
 
         editButtonSelectTime = findViewById(R.id.editButtonSelectTime);
         editTextViewTime = findViewById(R.id.editTextViewTime);
+
+        editTextTitle = findViewById(R.id.editTextTitle);
+        editTextDescription = findViewById(R.id.editTextDescription);
+
+        modifyButton = findViewById(R.id.modifyButton);
+        //modifyButton.setEnabled(false);
+
         editButtonSelectTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,9 +166,6 @@ public class EditEventActivity extends AppCompatActivity {
             }
         });
 
-        editTextTitle = findViewById(R.id.editTextTitle);
-        editTextDescription = findViewById(R.id.editTextDescription);
-
         // Remplir les champs avec les détails de l'événement
         String[] parts = selectedEvent.split("\n");
         editTextTitle.setText(parts[1]);
@@ -176,7 +183,78 @@ public class EditEventActivity extends AppCompatActivity {
             }
         });
 
-        modifyButton = findViewById(R.id.modifyButton);
+        editTextViewDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Pas besoin de cette méthode pour notre cas
+                checkFieldsNotEmpty();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Appeler la méthode de vérification
+                checkFieldsNotEmpty();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsNotEmpty();
+            }
+        });
+
+        editTextViewTime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Pas besoin de cette méthode pour notre cas
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Appeler la méthode de vérification
+                checkFieldsNotEmpty();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsNotEmpty();
+            }
+        });
+
+        editTextDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Pas besoin de cette méthode pour notre cas
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Appeler la méthode de vérification
+                checkFieldsNotEmpty();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsNotEmpty();
+            }
+        });
+
+        editTextTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Pas besoin de cette méthode pour notre cas
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Appeler la méthode de vérification
+                checkFieldsNotEmpty();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsNotEmpty();
+            }
+        });
         modifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -256,6 +334,17 @@ public class EditEventActivity extends AppCompatActivity {
             }
         });
         colorPicker.show();
+    }
+
+    private void checkFieldsNotEmpty() {
+        modifyButton = findViewById(R.id.modifyButton);
+        EditText editTextField1 = findViewById(R.id.editTextTitle);
+        EditText editTextField2 = findViewById(R.id.editTextDescription);
+        TextView editTextField3 = findViewById(R.id.editTextViewDate);
+        TextView editTextField4 = findViewById(R.id.editTextViewTime);
+
+        boolean fieldsNotEmpty = !TextUtils.isEmpty(editTextField4.getText()) && !TextUtils.isEmpty(editTextField3.getText()) && !TextUtils.isEmpty(editTextField1.getText()) && !TextUtils.isEmpty(editTextField2.getText());
+        modifyButton.setEnabled(fieldsNotEmpty);
     }
 
     public  void onChronoClick(View view){

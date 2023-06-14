@@ -88,6 +88,16 @@ public class ShowEvent extends AppCompatActivity {
                 TextView textViewDescription = view.findViewById(R.id.textViewDescription);
                 TextView textViewTime = view.findViewById(R.id.textViewTime);
 
+                if(textViewDescription.getText() == "Description")
+                {
+                    textViewDescription.setText("");
+                }
+
+                if(textViewTime.getText() == "HH:MM")
+                {
+                    textViewTime.setText("");
+                }
+
                 textViewTitle.setText(parts[1]);
                 textViewDescription.setText(parts[2]);
                 textViewTime.setText(parts[4]);
