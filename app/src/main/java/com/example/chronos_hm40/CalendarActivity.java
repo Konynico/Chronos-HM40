@@ -107,24 +107,21 @@ public class CalendarActivity extends AppCompatActivity {
                 TextView textViewTime = view.findViewById(R.id.textViewTime);
                 TextView textViewDate = view.findViewById(R.id.textViewDate);
 
+                textViewTitle.setText(parts[1]);
+                textViewDate.setText(parts[0]);
+                textViewDescription.setText(parts[2]);
+                textViewTime.setText(parts[4]);
+
                 if(textViewDescription.getText().toString().equals("Description"))
                 {
                     textViewDescription.setText("");
                 }
-                else {
-                    textViewDescription.setText(parts[2]);
-                }
+
 
                 if(textViewTime.getText().toString().equals("HH:MM"))
                 {
                     textViewTime.setText("");
                 }
-                else{
-                    textViewTime.setText(parts[4]);
-                }
-
-                textViewTitle.setText(parts[1]);
-                textViewDate.setText(parts[0]);
 
                 int color = Integer.parseInt(parts[3]);
                 textViewTitle.setTextColor(color);

@@ -176,26 +176,23 @@ public class EditEventActivity extends AppCompatActivity {
 
         // Remplir les champs avec les détails de l'événement
         String[] parts = selectedEvent.split("\n");
+
+        editTextTitle.setText(parts[1]);
+        editTextDescription.setText(parts[2]);
+        editTextViewDate.setText(parts[0]);
+        editTextViewTime.setText(parts[4]);
+        int color = Integer.parseInt(parts[3]);
+        editButtonColor.setBackgroundColor(color);
+
         if(editTextDescription.getText().toString().equals("Description"))
         {
             editTextDescription.setText("");
-        }
-        else {
-            editTextDescription.setText(parts[2]);
         }
 
         if(editTextViewTime.getText().toString().equals("HH:MM"))
         {
             editTextViewTime.setText("");
         }
-        else{
-            editTextViewTime.setText(parts[4]);
-        }
-
-        editTextTitle.setText(parts[1]);
-        editTextViewDate.setText(parts[0]);
-        int color = Integer.parseInt(parts[3]);
-        editButtonColor.setBackgroundColor(color);
 
         deleteButton = findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {
