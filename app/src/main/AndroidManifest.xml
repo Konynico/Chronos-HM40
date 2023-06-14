@@ -22,9 +22,6 @@
             android:name=".DeleteCourseActivity"
             android:exported="false" />
         <activity
-            android:name=".Rectangle"
-            android:exported="false" />
-        <activity
             android:name=".ScheduleActivity"
             android:exported="false" />
         <activity
@@ -35,9 +32,6 @@
             android:exported="false"/>
         <activity
             android:name=".AddCourseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Event"
             android:exported="false" />
         <activity
             android:name=".AddEventActivity"
