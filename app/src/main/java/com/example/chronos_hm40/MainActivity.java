@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private static ArrayList<String> events;
 
     private static File eventFile;
+    private boolean isDarkModeOn = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
     public  void onTodoClick(View view){
         Intent intent = new Intent(this, TodoList.class);
+        intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
+
     }
 
 

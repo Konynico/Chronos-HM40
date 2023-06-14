@@ -1,0 +1,66 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/darker_gray">
+
+    <EditText
+        android:id="@+id/etEditItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contenu du todo"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeMaxTextSize="48sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:textColor="@color/white"/>
+
+    <EditText
+        android:id="@+id/etEditDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date (jj/mm/aaaa)"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeMaxTextSize="48sp"
+        android:autoSizeStepGranularity="2sp"
+        android:autoSizeTextType="uniform"
+        android:textColor="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:text="Suppr."
+            android:textColor="@color/white"
+            android:backgroundTint="@android:color/black"/>
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:text="Annuler"
+            android:textColor="@color/white"
+            android:backgroundTint="@android:color/black"/>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:text="Enreg."
+            android:textColor="@color/white"
+            android:backgroundTint="@android:color/black"/>
+
+    </LinearLayout>
+
+</LinearLayout>

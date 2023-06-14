@@ -47,7 +47,15 @@ public class TodoList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_todo_list);
+        //recuper un argument au lancement de l'activité
+        Intent intent = getIntent();
+        boolean theme = intent.getBooleanExtra("theme", false);
+
+        if (theme == true){
+            setContentView(R.layout.dark_activity_todo_list);}
+        else{
+            setContentView(R.layout.activity_todo_list);}
+
         btnColorPicker = findViewById(R.id.button);
 
         selectedColor = ContextCompat.getColor(TodoList.this, R.color.colorPrimary);
@@ -85,9 +93,20 @@ public class TodoList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(TodoList.this);
-                builder.setTitle("Modifier le todo");
 
-                View dialogView = getLayoutInflater().inflate(R.layout.dialog_edit_todo, null);
+
+                //si le dark mode est activé, on change le theme de la boite de dialogue
+                Intent intent = getIntent();
+                boolean theme = intent.getBooleanExtra("theme", false);
+
+                View dialogView;
+
+                if (theme == true){
+                     dialogView = getLayoutInflater().inflate(R.layout.dark_dialog_edit_todo, null);}
+                else{
+                     dialogView = getLayoutInflater().inflate(R.layout.dialog_edit_todo, null);}
+
+
                 builder.setView(dialogView);
 
                 EditText etEditItem = dialogView.findViewById(R.id.etEditItem);
