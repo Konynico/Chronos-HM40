@@ -261,12 +261,21 @@ public class AddEventActivity extends AppCompatActivity {
         TextView textViewDate = findViewById(R.id.textViewDate);
         TextView textViewTime = findViewById(R.id.textViewTime);
 
+        if(editTextDescription.getText().toString().equals(""))
+        {
+            editTextDescription.setText("Description");
+        }
+
+        if(textViewTime.getText().toString().equals(""))
+        {
+            textViewTime.setText("HH:MM");
+        }
+
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
         int color = mDefaultColor;
         String date = textViewDate.getText().toString();
         String time = textViewTime.getText().toString();
-
 
         // Créer un SpannableString avec la couleur sélectionnée
         String newEvent = date + "\n" + title + "\n" + description + "\n" + color + "\n" + time;
@@ -285,8 +294,9 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
     private void writeEvents() {
+        File directory = getExternalFilesDir(null);
+        eventFile = new File(directory, "events.csv");
         try {
-            //FileWriter fileWriter = new FileWriter(eventFile);
             FileWriter fileWriter = new FileWriter(eventFile);
             CSVWriter csvWriter = new CSVWriter(fileWriter);
 
@@ -304,11 +314,9 @@ public class AddEventActivity extends AppCompatActivity {
     private void checkFieldsNotEmpty() {
         addButton = findViewById(R.id.addButton);
         EditText editTextField1 = findViewById(R.id.editTextTitle);
-        EditText editTextField2 = findViewById(R.id.editTextDescription);
         TextView editTextField3 = findViewById(R.id.textViewDate);
-        TextView editTextField4 = findViewById(R.id.textViewTime);
 
-        boolean fieldsNotEmpty = !TextUtils.isEmpty(editTextField4.getText()) && !TextUtils.isEmpty(editTextField3.getText()) && !TextUtils.isEmpty(editTextField1.getText()) && !TextUtils.isEmpty(editTextField2.getText());
+        boolean fieldsNotEmpty = !TextUtils.isEmpty(editTextField3.getText()) && !TextUtils.isEmpty(editTextField1.getText());
         addButton.setEnabled(fieldsNotEmpty);
     }
 

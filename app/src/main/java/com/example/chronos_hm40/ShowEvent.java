@@ -88,19 +88,23 @@ public class ShowEvent extends AppCompatActivity {
                 TextView textViewDescription = view.findViewById(R.id.textViewDescription);
                 TextView textViewTime = view.findViewById(R.id.textViewTime);
 
-                if(textViewDescription.getText() == "Description")
+                if(textViewDescription.getText().toString().equals("Description"))
                 {
                     textViewDescription.setText("");
                 }
+                else {
+                    textViewDescription.setText(parts[2]);
+                }
 
-                if(textViewTime.getText() == "HH:MM")
+                if(textViewTime.getText().toString().equals("HH:MM"))
                 {
                     textViewTime.setText("");
                 }
+                else{
+                    textViewTime.setText(parts[4]);
+                }
 
                 textViewTitle.setText(parts[1]);
-                textViewDescription.setText(parts[2]);
-                textViewTime.setText(parts[4]);
 
                 int color = Integer.parseInt(parts[3]);
                 textViewTitle.setTextColor(color);
@@ -132,7 +136,8 @@ public class ShowEvent extends AppCompatActivity {
 
     private void readEvents() {
         events.clear(); // Vide la liste events avant de lire les événements
-
+        File directory = getExternalFilesDir(null);
+        eventFile = new File(directory, "events.csv");
         try {
             FileReader fileReader = new FileReader(eventFile);
             CSVReader csvReader = new CSVReader(fileReader);

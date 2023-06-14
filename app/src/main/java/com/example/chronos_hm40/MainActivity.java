@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         }
         //eventFile = new File(getFilesDir(), "event.csv");
         File directory = getExternalFilesDir(null);
-        eventFile = new File(directory, "event.csv");
+        eventFile = new File(directory, "events.csv");
         events = new ArrayList<>();
     }
 

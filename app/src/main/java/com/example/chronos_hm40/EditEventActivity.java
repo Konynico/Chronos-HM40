@@ -84,9 +84,17 @@ public class EditEventActivity extends AppCompatActivity {
                 TextView textViewDescription = view.findViewById(R.id.textViewDescription);
                 TextView textViewTime = view.findViewById(R.id.textViewTime);
 
+                if(textViewDescription.getText().toString().equals("Description"))
+                {
+                    textViewDescription.setText("");
+                }
+
+                if(textViewTime.getText().toString().equals("HH:MM"))
+                {
+                    textViewTime.setText("");
+                }
+
                 textViewTitle.setText(parts[1]);
-                textViewDescription.setText(parts[2]);
-                textViewTime.setText(parts[4]);
 
                 int color = Integer.parseInt(parts[3]);
                 textViewTitle.setTextColor(color);
@@ -130,8 +138,8 @@ public class EditEventActivity extends AppCompatActivity {
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextDescription = findViewById(R.id.editTextDescription);
 
+
         modifyButton = findViewById(R.id.modifyButton);
-        //modifyButton.setEnabled(false);
 
         editButtonSelectTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,10 +176,24 @@ public class EditEventActivity extends AppCompatActivity {
 
         // Remplir les champs avec les détails de l'événement
         String[] parts = selectedEvent.split("\n");
+        if(editTextDescription.getText().toString().equals("Description"))
+        {
+            editTextDescription.setText("");
+        }
+        else {
+            editTextDescription.setText(parts[2]);
+        }
+
+        if(editTextViewTime.getText().toString().equals("HH:MM"))
+        {
+            editTextViewTime.setText("");
+        }
+        else{
+            editTextViewTime.setText(parts[4]);
+        }
+
         editTextTitle.setText(parts[1]);
-        editTextDescription.setText(parts[2]);
         editTextViewDate.setText(parts[0]);
-        editTextViewTime.setText(parts[4]);
         int color = Integer.parseInt(parts[3]);
         editButtonColor.setBackgroundColor(color);
 
@@ -269,6 +291,16 @@ public class EditEventActivity extends AppCompatActivity {
         TextView neweditTextViewDate = findViewById(R.id.editTextViewDate);
         TextView neweditTextViewTime = findViewById(R.id.editTextViewTime);
 
+        if(neweditTextDescription.getText().toString().equals(""))
+        {
+            neweditTextDescription.setText("Description");
+        }
+
+        if(neweditTextViewTime.getText().toString().equals(""))
+        {
+            neweditTextViewTime.setText("HH:MM");
+        }
+
         String title = neweditTextTitle.getText().toString();
         String description = neweditTextDescription.getText().toString();
         int color = selectedColor;
@@ -290,7 +322,7 @@ public class EditEventActivity extends AppCompatActivity {
         editTextViewDate.setText("");
         editTextViewTime.setText("");
 
-        // Fermez l'activité AddCourseActivity et retournez à l'activité précédente
+        // Fermez l'activité EditEventActivity et retournez à l'activité précédente
         finish();
     }
 
@@ -306,6 +338,8 @@ public class EditEventActivity extends AppCompatActivity {
     }
 
     private void writeEvents() {
+        File directory = getExternalFilesDir(null);
+        eventFile = new File(directory, "events.csv");
         try {
             FileWriter fileWriter = new FileWriter(eventFile);
             CSVWriter csvWriter = new CSVWriter(fileWriter);
@@ -339,11 +373,9 @@ public class EditEventActivity extends AppCompatActivity {
     private void checkFieldsNotEmpty() {
         modifyButton = findViewById(R.id.modifyButton);
         EditText editTextField1 = findViewById(R.id.editTextTitle);
-        EditText editTextField2 = findViewById(R.id.editTextDescription);
         TextView editTextField3 = findViewById(R.id.editTextViewDate);
-        TextView editTextField4 = findViewById(R.id.editTextViewTime);
 
-        boolean fieldsNotEmpty = !TextUtils.isEmpty(editTextField4.getText()) && !TextUtils.isEmpty(editTextField3.getText()) && !TextUtils.isEmpty(editTextField1.getText()) && !TextUtils.isEmpty(editTextField2.getText());
+        boolean fieldsNotEmpty = !TextUtils.isEmpty(editTextField3.getText()) && !TextUtils.isEmpty(editTextField1.getText());
         modifyButton.setEnabled(fieldsNotEmpty);
     }
 

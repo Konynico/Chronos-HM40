@@ -107,19 +107,23 @@ public class CalendarActivity extends AppCompatActivity {
                 TextView textViewTime = view.findViewById(R.id.textViewTime);
                 TextView textViewDate = view.findViewById(R.id.textViewDate);
 
-                if(textViewDescription.getText() == "Description")
+                if(textViewDescription.getText().toString().equals("Description"))
                 {
                     textViewDescription.setText("");
                 }
+                else {
+                    textViewDescription.setText(parts[2]);
+                }
 
-                if(textViewTime.getText() == "HH:MM")
+                if(textViewTime.getText().toString().equals("HH:MM"))
                 {
                     textViewTime.setText("");
                 }
+                else{
+                    textViewTime.setText(parts[4]);
+                }
 
                 textViewTitle.setText(parts[1]);
-                textViewDescription.setText(parts[2]);
-                textViewTime.setText(parts[4]);
                 textViewDate.setText(parts[0]);
 
                 int color = Integer.parseInt(parts[3]);
@@ -164,8 +168,10 @@ public class CalendarActivity extends AppCompatActivity {
 
     private void readEvents() {
         events.clear(); // Vide la liste events avant de lire les événements
-
+        File directory = getExternalFilesDir(null);
+        eventFile = new File(directory, "events.csv");
         try {
+
             FileReader fileReader = new FileReader(eventFile);
             CSVReader csvReader = new CSVReader(fileReader);
             List<String[]> csvData = csvReader.readAll();
