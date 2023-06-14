@@ -37,16 +37,20 @@ public class ScheduleActivity extends AppCompatActivity {
     private Calendar currentDate = Calendar.getInstance();
     private LinearLayout squareContainer;
 
+    private boolean isDarkModeOn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         boolean theme = intent.getBooleanExtra("theme", false);
-        if (theme == true){
-            setContentView(R.layout.dark_activity_schedule);}
-        else{
-            setContentView(R.layout.activity_schedule);}
-
+        if (theme == true) {
+            setContentView(R.layout.dark_activity_schedule);
+            isDarkModeOn = true;
+        }else{
+            setContentView(R.layout.activity_schedule);
+            isDarkModeOn = false;
+        }
         textViewSelectedDay = findViewById(R.id.textViewSelectedDay);
         currentDate = Calendar.getInstance();
         updateSelectedDayText();
@@ -209,6 +213,7 @@ public class ScheduleActivity extends AppCompatActivity {
     }
     public  void onChronoClick(View view){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
     }
 }

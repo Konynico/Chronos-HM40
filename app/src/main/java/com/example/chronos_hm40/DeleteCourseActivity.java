@@ -23,16 +23,19 @@ import java.util.Calendar;
 public class DeleteCourseActivity extends AppCompatActivity {
     private LinearLayout squareContainer;
 
+    private boolean isDarkModeOn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         boolean theme = intent.getBooleanExtra("theme", false);
-        if (theme == true){
-            setContentView(R.layout.dark_activity_delete_course);}
-        else{
-            setContentView(R.layout.activity_delete_course);}
-
+        if (theme == true) {
+            setContentView(R.layout.dark_activity_add_course);
+            isDarkModeOn = true;
+        }else{
+            setContentView(R.layout.activity_add_course);
+            isDarkModeOn = false;
+        }
         try {
             File csvFile = new File(getExternalFilesDir(null), "data_schedule_test.csv");
             BufferedReader bufferedReader = new BufferedReader(new FileReader(csvFile));
@@ -145,6 +148,7 @@ public class DeleteCourseActivity extends AppCompatActivity {
     }
     public  void onChronoClick(View view){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
     }
 }

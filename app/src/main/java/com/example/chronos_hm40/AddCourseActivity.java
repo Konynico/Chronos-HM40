@@ -52,6 +52,7 @@ public class AddCourseActivity extends AppCompatActivity {
     EditText editTextHourBegin;
     EditText editTextHourEnd;
     private Button validateButton;
+    private boolean isDarkModeOn;
 
 
     @Override
@@ -59,10 +60,13 @@ public class AddCourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         boolean theme = intent.getBooleanExtra("theme", false);
-        if (theme == true){
-            setContentView(R.layout.dark_activity_add_course);}
-        else{
-            setContentView(R.layout.activity_add_course);}
+        if (theme == true) {
+            setContentView(R.layout.dark_activity_add_course);
+            isDarkModeOn = true;
+        }else{
+            setContentView(R.layout.activity_add_course);
+            isDarkModeOn = false;
+        }
         spinnerFrequency = findViewById(R.id.spinnerFrequency);
         spinnerDay = findViewById(R.id.spinnerDay);
         frequencyAdapter = ArrayAdapter.createFromResource(this, R.array.frequency_options, android.R.layout.simple_spinner_item);
@@ -564,6 +568,7 @@ public class AddCourseActivity extends AppCompatActivity {
     }
     public  void onChronoClick(View view){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
     }
 }
