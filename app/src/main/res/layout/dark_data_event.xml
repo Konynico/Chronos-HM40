@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black">
+    android:layout_height="match_parent">
 
     <!-- Bandeau bleu -->
     <View
@@ -24,9 +23,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter_font"
         android:onClick="onChronoClick"
-        android:text="CALENDRIER"
+        android:text="EVENEMENTS"
         android:textColor="@android:color/white"
-        android:textSize="50sp"
+        android:textSize="45sp"
         android:textStyle="bold"
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="@+id/blueView"
@@ -34,22 +33,18 @@
         app:layout_constraintStart_toStartOf="@+id/blueView"
         app:layout_constraintTop_toTopOf="@+id/blueView" />
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="372dp"
-        android:layout_height="386dp"
+    <ListView
+        android:id="@+id/lvEvents"
+        android:layout_width="413dp"
+        android:layout_height="623dp"
+        android:layout_above="@+id/blueView"
+        android:layout_below="@+id/blueView"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blueView"
-        app:layout_constraintVertical_bias="0.145" />
-
-    <ListView
-        android:id="@+id/lvEvents2"
-        android:layout_width="413dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

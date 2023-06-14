@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black">
+    android:layout_height="match_parent">
 
     <!-- Bandeau bleu -->
     <View
@@ -14,16 +13,16 @@
         android:background="@android:color/holo_blue_light"
         app:layout_constraintBottom_toTopOf="@+id/whiteView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.15"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHeight_percent="0.15"
         tools:ignore="UnknownIdInLayout" />
 
     <TextView
+        android:onClick="onChronoClick"
+        android:fontFamily="@font/inter_font"
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/inter_font"
-        android:onClick="onChronoClick"
         android:text="CALENDRIER"
         android:textColor="@android:color/white"
         android:textSize="50sp"
@@ -36,13 +35,12 @@
 
     <CalendarView
         android:id="@+id/calendarView"
-        android:layout_width="372dp"
-        android:layout_height="386dp"
+        android:layout_width="362dp"
+        android:layout_height="541dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blueView"
-        app:layout_constraintVertical_bias="0.145" />
+        app:layout_constraintTop_toBottomOf="@+id/blueView" />
 
     <ListView
         android:id="@+id/lvEvents2"

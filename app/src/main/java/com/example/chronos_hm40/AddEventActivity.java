@@ -47,7 +47,14 @@ public class AddEventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_event);
+        //recuper un argument au lancement de l'activité
+        Intent intent = getIntent();
+        boolean theme = intent.getBooleanExtra("theme", false);
+
+        if (theme == true){
+            setContentView(R.layout.dark_activity_add_event);}
+        else{
+            setContentView(R.layout.activity_add_event);}
 
         Button buttonSelectDate = findViewById(R.id.buttonSelectDate);
         Button buttonSelectTime = findViewById(R.id.buttonSelectTime);

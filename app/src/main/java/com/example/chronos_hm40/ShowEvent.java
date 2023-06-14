@@ -46,7 +46,14 @@ public class ShowEvent extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.data_event);
+        //recuper un argument au lancement de l'activité
+        Intent intent = getIntent();
+        boolean theme = intent.getBooleanExtra("theme", false);
+
+        if (theme == true){
+            setContentView(R.layout.dark_data_event);}
+        else{
+            setContentView(R.layout.data_event);}
 
         lvEvents = findViewById(R.id.lvEvents);
         events = MainActivity.getEvents();
@@ -99,6 +106,7 @@ public class ShowEvent extends AppCompatActivity {
                 // Créer une nouvelle intention pour lancer l'activité EventDetailsActivity
                 Intent intent = new Intent(ShowEvent.this, EditEventActivity.class);
                 intent.putExtra("selectedEvent", selectedEvent); // Vous pouvez passer des données supplémentaires à l'activité si nécessaire
+                intent.putExtra("theme", theme);
                 startActivity(intent);
                 finish();
             }

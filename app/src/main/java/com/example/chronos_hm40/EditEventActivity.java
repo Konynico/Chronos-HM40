@@ -49,7 +49,15 @@ public class EditEventActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_event);
+
+        //recuper un argument au lancement de l'activité
+        Intent intent = getIntent();
+        boolean theme = intent.getBooleanExtra("theme", false);
+
+        if (theme == true){
+            setContentView(R.layout.dark_activity_edit_event);}
+        else{
+            setContentView(R.layout.activity_edit_event);}
 
         events = MainActivity.getEvents();
         eventFile = MainActivity.getFile();
