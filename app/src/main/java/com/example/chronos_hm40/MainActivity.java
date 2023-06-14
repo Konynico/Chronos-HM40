@@ -72,6 +72,20 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onChangeMode(View view)
+    {
+        if(isDarkModeOn)
+        {
+            setContentView(R.layout.activity_main);
+            isDarkModeOn = false;
+        }
+        else
+        {
+            setContentView(R.layout.dark_activity_main);
+            isDarkModeOn = true;
+        }
+    }
+
     public static ArrayList<String> getEvents() {
         return events;
     }
