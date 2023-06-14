@@ -204,6 +204,7 @@ public class AddEventActivity extends AppCompatActivity {
 
     private void writeEvents() {
         try {
+            //FileWriter fileWriter = new FileWriter(eventFile);
             FileWriter fileWriter = new FileWriter(eventFile);
             CSVWriter csvWriter = new CSVWriter(fileWriter);
 

@@ -88,8 +88,7 @@
         android:gravity="center_vertical"
         android:text="Date      JJ/MM/AAAA"
         app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/lightgrey"
-        android:textColor="@color/black"
+        android:textColor="@color/lightgrey"
         app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toEndOf="@+id/editButtonSelectDate"
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />

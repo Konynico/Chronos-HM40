@@ -94,7 +94,7 @@ public class CalendarActivity extends AppCompatActivity {
         }
 
         // Définir l'adaptateur sur lvEvents
-        eventsAdapter = new ArrayAdapter<String>(this, R.layout.data_form_event, R.id.textViewTitle, threeEvents) {
+        eventsAdapter = new ArrayAdapter<String>(this, R.layout.data_form_event_date, R.id.textViewTitle, threeEvents) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
@@ -105,15 +105,18 @@ public class CalendarActivity extends AppCompatActivity {
                 TextView textViewTitle = view.findViewById(R.id.textViewTitle);
                 TextView textViewDescription = view.findViewById(R.id.textViewDescription);
                 TextView textViewTime = view.findViewById(R.id.textViewTime);
+                TextView textViewDate = view.findViewById(R.id.textViewDate);
 
                 textViewTitle.setText(parts[1]);
                 textViewDescription.setText(parts[2]);
                 textViewTime.setText(parts[4]);
+                textViewDate.setText(parts[0]);
 
                 int color = Integer.parseInt(parts[3]);
                 textViewTitle.setTextColor(color);
                 textViewDescription.setTextColor(color);
                 textViewTime.setTextColor(color);
+                textViewDate.setTextColor(color);
 
                 return view;
             }
