@@ -55,7 +55,7 @@ public class ColorRectangleView extends View {
         // Dessiner le titre en gras au centre
         Paint titlePaint = new Paint();
         titlePaint.setColor(Color.BLACK);
-        titlePaint.setTextSize(0.2f * height); // Augmenter la taille de police
+        titlePaint.setTextSize(0.2f * 400); // Augmenter la taille de police
         titlePaint.setTypeface(Typeface.DEFAULT_BOLD);
         titlePaint.setTextAlign(Paint.Align.CENTER);
         float titleX = width / 2f;
@@ -65,7 +65,7 @@ public class ColorRectangleView extends View {
         // Dessiner le sous-titre normal
         Paint subtitlePaint = new Paint();
         subtitlePaint.setColor(Color.BLACK);
-        subtitlePaint.setTextSize(0.12f * height); // Augmenter la taille de police
+        subtitlePaint.setTextSize(0.12f * 400); // Augmenter la taille de police
         subtitlePaint.setTextAlign(Paint.Align.CENTER);
         float subtitleX = width / 2f;
         float subtitleY = (height - subtitlePaint.descent() - subtitlePaint.ascent()) / 2f + (0.1f * height); // Remonter légèrement le sous-titre
@@ -74,7 +74,7 @@ public class ColorRectangleView extends View {
         // Dessiner l'horaire de départ en bas à gauche
         Paint startTimePaint = new Paint();
         startTimePaint.setColor(Color.BLACK);
-        startTimePaint.setTextSize(0.15f * height); // Augmenter la taille de police
+        startTimePaint.setTextSize(0.15f * 400); // Augmenter la taille de police
         startTimePaint.setTextAlign(Paint.Align.LEFT);
         float startTimeX = 0.05f * width; // Décalage vers la droite pour éviter les bords
         float startTimeY = height - startTimePaint.descent();
@@ -83,7 +83,7 @@ public class ColorRectangleView extends View {
         // Dessiner l'horaire de fin en bas à droite
         Paint endTimePaint = new Paint();
         endTimePaint.setColor(Color.BLACK);
-        endTimePaint.setTextSize(0.15f * height); // Augmenter la taille de police
+        endTimePaint.setTextSize(0.15f * 400); // Augmenter la taille de police
         endTimePaint.setTextAlign(Paint.Align.RIGHT);
         float endTimeX = width - (0.05f * width); // Décalage vers la gauche pour éviter les bords
         float endTimeY = height - endTimePaint.descent();

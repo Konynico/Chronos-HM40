@@ -174,7 +174,7 @@ public class ScheduleActivity extends AppCompatActivity {
         // Calculer la largeur du rectangle (par exemple, 80% de la largeur de l'écran)
         int rectangleWidth = (int) (screenWidth * 0.9);
 
-        int height = 400; // Hauteur du rectangle (en pixels)
+        int height = calculHauteur(course); // Hauteur du rectangle (en pixels)
         ColorRectangleView rectangleView = new ColorRectangleView(this, course.getColor(), rectangleWidth, height,course.getTitle(),course.getSubTitle(),course.getHourBegin(),course.getHourEnd());
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(rectangleWidth, height);
@@ -182,5 +182,23 @@ public class ScheduleActivity extends AppCompatActivity {
         layoutParams.setMargins(0, 0, 0, 10); // left, top, right, bottom
         rectangleView.setLayoutParams(layoutParams);
         squareContainer.addView(rectangleView);
+    }
+
+    private int calculHauteur(Course course){
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        try {
+            Date startTime = timeFormat.parse(course.getHourBegin());
+            Date endTime = timeFormat.parse(course.getHourEnd());
+            long duration = endTime.getTime() - startTime.getTime();
+
+            // Calculer la hauteur proportionnelle à la durée
+            float heightProportion = duration / (60 * 60 * 1000f); // Convertir la durée en heures
+            heightProportion = heightProportion*200;
+            return (int)heightProportion;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 }
