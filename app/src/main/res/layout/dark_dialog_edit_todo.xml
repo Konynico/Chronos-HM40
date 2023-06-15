@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@android:color/darker_gray">
+    android:background="@color/darkgrey">
 
     <EditText
         android:id="@+id/etEditItem"
@@ -13,7 +13,8 @@
         android:autoSizeMaxTextSize="48sp"
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"
-        android:textColor="@color/white"/>
+        android:textColor="@color/lightgrey"
+        />
 
     <EditText
         android:id="@+id/etEditDate"
@@ -24,7 +25,7 @@
         android:autoSizeMaxTextSize="48sp"
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"
-        android:textColor="@color/white"/>
+        android:textColor="@color/lightgrey"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,8 +39,8 @@
             android:layout_weight="1"
             android:textSize="12sp"
             android:text="Suppr."
-            android:textColor="@color/white"
-            android:backgroundTint="@android:color/black"/>
+            android:textColor="@color/black"
+            android:backgroundTint="@color/lightgrey"/>
 
         <Button
             android:id="@+id/btnCancel"
@@ -48,8 +49,8 @@
             android:layout_weight="1"
             android:textSize="12sp"
             android:text="Annuler"
-            android:textColor="@color/white"
-            android:backgroundTint="@android:color/black"/>
+            android:textColor="@color/black"
+            android:backgroundTint="@color/lightgrey"/>
 
         <Button
             android:id="@+id/btnSave"
@@ -58,8 +59,8 @@
             android:layout_weight="1"
             android:textSize="12sp"
             android:text="Enreg."
-            android:textColor="@color/white"
-            android:backgroundTint="@android:color/black"/>
+            android:textColor="@color/black"
+            android:backgroundTint="@color/lightgrey"/>
 
     </LinearLayout>
 

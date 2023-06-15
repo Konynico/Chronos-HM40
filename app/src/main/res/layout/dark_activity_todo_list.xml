@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
+    android:background="@color/darkgrey">
 
-    >
+
 
     <!-- Bandeau bleu -->
     <View
@@ -42,7 +42,9 @@
         app:layout_constraintBottom_toTopOf="@+id/layout_add_item"
         app:layout_constraintTop_toBottomOf="@+id/blueView"
         app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="-5dp" />
+        tools:layout_editor_absoluteX="-5dp"
+
+        />
 
     <LinearLayout
         android:id="@+id/layout_add_item"
@@ -59,7 +61,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Entrer un nouveau Todo"
-            android:textColor="@color/white" />
+            android:textColor="@color/lightgrey"
+            android:textColorHint="@color/lightgrey" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -74,8 +77,8 @@
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="1dp"
                 android:onClick="onSelectDate"
-                android:textColor="@color/white"
-                android:backgroundTint="@android:color/black"/>
+                android:textColor="@color/black"
+                android:backgroundTint="@color/lightgrey"/>
 
             <EditText
                 android:id="@+id/etNewDate"
@@ -83,7 +86,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="Date \n(jj/mm/aaaa)"
-                android:textColor="@color/white" />
+                android:textColor="@color/lightgrey"
+                android:textColorHint="@color/lightgrey" />
 
         </LinearLayout>
 
@@ -92,10 +96,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
-            android:backgroundTint="@android:color/black"
+            android:backgroundTint="@color/lightgrey"
             android:onClick="onClick"
             android:text="Couleur du todo"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/btnAddItem"
@@ -103,8 +107,8 @@
             android:layout_height="wrap_content"
             android:onClick="onAddItem"
             android:text="Add ToDo"
-            android:textColor="@color/white"
-            android:backgroundTint="@android:color/black"/>
+            android:textColor="@color/black"
+            android:backgroundTint="@color/lightgrey"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
