@@ -42,6 +42,9 @@ public class ShowEvent extends AppCompatActivity {
     private ListView lvEvents;
     private File eventFile;
 
+    private boolean isDarkModeOn;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +53,13 @@ public class ShowEvent extends AppCompatActivity {
         Intent intent = getIntent();
         boolean theme = intent.getBooleanExtra("theme", false);
 
-        if (theme == true){
-            setContentView(R.layout.dark_data_event);}
-        else{
-            setContentView(R.layout.data_event);}
+        if (theme == true) {
+            setContentView(R.layout.dark_data_event);
+            isDarkModeOn = true;
+        }else{
+            setContentView(R.layout.data_event);
+            isDarkModeOn = false;
+        }
 
         lvEvents = findViewById(R.id.lvEvents);
         events = MainActivity.getEvents();
@@ -86,6 +92,16 @@ public class ShowEvent extends AppCompatActivity {
                 textViewDescription.setText(parts[2]);
                 textViewTime.setText(parts[4]);
 
+                if(textViewDescription.getText().toString().equals("Description"))
+                {
+                    textViewDescription.setText("");
+                }
+
+                if(textViewTime.getText().toString().equals("HH:MM"))
+                {
+                    textViewTime.setText("");
+                }
+
                 int color = Integer.parseInt(parts[3]);
                 textViewTitle.setTextColor(color);
                 textViewDescription.setTextColor(color);
@@ -116,7 +132,8 @@ public class ShowEvent extends AppCompatActivity {
 
     private void readEvents() {
         events.clear(); // Vide la liste events avant de lire les événements
-
+        File directory = getExternalFilesDir(null);
+        eventFile = new File(directory, "events.csv");
         try {
             FileReader fileReader = new FileReader(eventFile);
             CSVReader csvReader = new CSVReader(fileReader);
@@ -138,6 +155,8 @@ public class ShowEvent extends AppCompatActivity {
 
     public  void onChronoClick(View view){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
+        finish();
     }
 }

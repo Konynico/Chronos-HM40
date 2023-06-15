@@ -28,16 +28,17 @@
                 android:id="@+id/textViewTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="Title" />
 
             <TextView
                 android:id="@+id/textViewDescription"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="42dp"
                 android:layout_marginTop="8dp"
-                android:textSize="15sp"
+                android:maxLines="3"
+                android:textSize="12sp"
                 tools:text="Description" />
 
         </LinearLayout>

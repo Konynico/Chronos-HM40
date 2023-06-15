@@ -5,6 +5,9 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -47,6 +50,9 @@ public class EditEventActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> eventsAdapter;
 
+    private boolean isDarkModeOn;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -54,10 +60,13 @@ public class EditEventActivity extends AppCompatActivity {
         Intent intent = getIntent();
         boolean theme = intent.getBooleanExtra("theme", false);
 
-        if (theme == true){
-            setContentView(R.layout.dark_activity_edit_event);}
-        else{
-            setContentView(R.layout.activity_edit_event);}
+        if (theme == true) {
+            setContentView(R.layout.dark_activity_edit_event);
+            isDarkModeOn = true;
+        }else{
+            setContentView(R.layout.activity_edit_event);
+            isDarkModeOn = false;
+        }
 
         events = MainActivity.getEvents();
         eventFile = MainActivity.getFile();
@@ -75,9 +84,17 @@ public class EditEventActivity extends AppCompatActivity {
                 TextView textViewDescription = view.findViewById(R.id.textViewDescription);
                 TextView textViewTime = view.findViewById(R.id.textViewTime);
 
+                if(textViewDescription.getText().toString().equals("Description"))
+                {
+                    textViewDescription.setText("");
+                }
+
+                if(textViewTime.getText().toString().equals("HH:MM"))
+                {
+                    textViewTime.setText("");
+                }
+
                 textViewTitle.setText(parts[1]);
-                textViewDescription.setText(parts[2]);
-                textViewTime.setText(parts[4]);
 
                 int color = Integer.parseInt(parts[3]);
                 textViewTitle.setTextColor(color);
@@ -117,6 +134,13 @@ public class EditEventActivity extends AppCompatActivity {
 
         editButtonSelectTime = findViewById(R.id.editButtonSelectTime);
         editTextViewTime = findViewById(R.id.editTextViewTime);
+
+        editTextTitle = findViewById(R.id.editTextTitle);
+        editTextDescription = findViewById(R.id.editTextDescription);
+
+
+        modifyButton = findViewById(R.id.modifyButton);
+
         editButtonSelectTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,17 +174,25 @@ public class EditEventActivity extends AppCompatActivity {
             }
         });
 
-        editTextTitle = findViewById(R.id.editTextTitle);
-        editTextDescription = findViewById(R.id.editTextDescription);
-
         // Remplir les champs avec les détails de l'événement
         String[] parts = selectedEvent.split("\n");
+
         editTextTitle.setText(parts[1]);
         editTextDescription.setText(parts[2]);
         editTextViewDate.setText(parts[0]);
         editTextViewTime.setText(parts[4]);
         int color = Integer.parseInt(parts[3]);
         editButtonColor.setBackgroundColor(color);
+
+        if(editTextDescription.getText().toString().equals("Description"))
+        {
+            editTextDescription.setText("");
+        }
+
+        if(editTextViewTime.getText().toString().equals("HH:MM"))
+        {
+            editTextViewTime.setText("");
+        }
 
         deleteButton = findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -170,7 +202,78 @@ public class EditEventActivity extends AppCompatActivity {
             }
         });
 
-        modifyButton = findViewById(R.id.modifyButton);
+        editTextViewDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Pas besoin de cette méthode pour notre cas
+                checkFieldsNotEmpty();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Appeler la méthode de vérification
+                checkFieldsNotEmpty();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsNotEmpty();
+            }
+        });
+
+        editTextViewTime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Pas besoin de cette méthode pour notre cas
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Appeler la méthode de vérification
+                checkFieldsNotEmpty();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsNotEmpty();
+            }
+        });
+
+        editTextDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Pas besoin de cette méthode pour notre cas
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Appeler la méthode de vérification
+                checkFieldsNotEmpty();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsNotEmpty();
+            }
+        });
+
+        editTextTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Pas besoin de cette méthode pour notre cas
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Appeler la méthode de vérification
+                checkFieldsNotEmpty();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsNotEmpty();
+            }
+        });
         modifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,6 +287,16 @@ public class EditEventActivity extends AppCompatActivity {
         EditText neweditTextDescription = findViewById(R.id.editTextDescription);
         TextView neweditTextViewDate = findViewById(R.id.editTextViewDate);
         TextView neweditTextViewTime = findViewById(R.id.editTextViewTime);
+
+        if(neweditTextDescription.getText().toString().equals(""))
+        {
+            neweditTextDescription.setText("Description");
+        }
+
+        if(neweditTextViewTime.getText().toString().equals(""))
+        {
+            neweditTextViewTime.setText("HH:MM");
+        }
 
         String title = neweditTextTitle.getText().toString();
         String description = neweditTextDescription.getText().toString();
@@ -206,7 +319,7 @@ public class EditEventActivity extends AppCompatActivity {
         editTextViewDate.setText("");
         editTextViewTime.setText("");
 
-        // Fermez l'activité AddCourseActivity et retournez à l'activité précédente
+        // Fermez l'activité EditEventActivity et retournez à l'activité précédente
         finish();
     }
 
@@ -222,6 +335,8 @@ public class EditEventActivity extends AppCompatActivity {
     }
 
     private void writeEvents() {
+        File directory = getExternalFilesDir(null);
+        eventFile = new File(directory, "events.csv");
         try {
             FileWriter fileWriter = new FileWriter(eventFile);
             CSVWriter csvWriter = new CSVWriter(fileWriter);
@@ -252,8 +367,19 @@ public class EditEventActivity extends AppCompatActivity {
         colorPicker.show();
     }
 
+    private void checkFieldsNotEmpty() {
+        modifyButton = findViewById(R.id.modifyButton);
+        EditText editTextField1 = findViewById(R.id.editTextTitle);
+        TextView editTextField3 = findViewById(R.id.editTextViewDate);
+
+        boolean fieldsNotEmpty = !TextUtils.isEmpty(editTextField3.getText()) && !TextUtils.isEmpty(editTextField1.getText());
+        modifyButton.setEnabled(fieldsNotEmpty);
+    }
+
     public  void onChronoClick(View view){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
+        finish();
     }
 }

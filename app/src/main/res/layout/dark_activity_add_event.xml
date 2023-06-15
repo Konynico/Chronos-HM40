@@ -5,6 +5,7 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/darkgrey"
     tools:context=".MainActivity">
 
     <!-- Bandeau bleu -->
@@ -12,8 +13,7 @@
         android:id="@+id/blueView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/holo_blue_light"
-        app:layout_constraintBottom_toTopOf="@+id/whiteView"
+        android:background="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.15"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,8 +26,8 @@
         android:fontFamily="@font/inter_font"
         android:onClick="onChronoClick"
         android:text="AJOUTER UN EVENEMENT"
-        android:textColor="@android:color/white"
-        android:textSize="30sp"
+        android:textColor="@color/lightgrey"
+        android:textSize="26sp"
         android:textStyle="bold"
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="@+id/blueView"
@@ -45,6 +45,8 @@
         android:layout_marginTop="32dp"
         android:hint="Titre de l'évènement"
         android:inputType="text"
+        android:textColor="@color/lightgrey"
+        android:textColorHint="@color/lightgrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +59,8 @@
         android:layout_marginTop="12dp"
         android:hint="Description"
         android:inputType="text"
+        android:textColor="@color/lightgrey"
+        android:textColorHint="@color/lightgrey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,35 +68,36 @@
 
     <Button
         android:id="@+id/buttonSelectDate"
-        android:layout_width="190dp"
-        android:layout_height="48dp"
+        android:layout_width="223dp"
+        android:layout_height="50dp"
         android:layout_marginTop="40dp"
-        android:backgroundTint="@android:color/holo_blue_light"
+        android:backgroundTint="@color/lightgrey"
         android:text="Sélectionner une date"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textViewDate"
-        android:layout_width="141dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="4dp"
+        android:layout_width="153dp"
+        android:layout_height="50dp"
         android:layout_marginTop="40dp"
         android:gravity="center_vertical"
-        android:text="Date      JJ/MM/AAAA"
+        android:hint="JJ/MM/AAAA"
+        android:textColor="@color/lightgrey"
+        android:textColorHint="@color/lightgrey"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.657"
-        app:layout_constraintStart_toEndOf="@+id/buttonSelectDate"
         app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
 
     <Button
         android:id="@+id/buttonSelectTime"
-        android:layout_width="200dp"
+        android:layout_width="242dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@android:color/holo_blue_light"
+        android:backgroundTint="@color/lightgrey"
         android:text="Sélectionner une heure"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewDate"
         tools:ignore="MissingConstraints" />
@@ -100,15 +105,14 @@
 
     <TextView
         android:id="@+id/textViewTime"
-        android:layout_width="142dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="4dp"
+        android:layout_width="129dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:gravity="center_vertical"
-        android:text="Heure      HH:MM"
+        android:hint="HH:MM"
+        android:textColor="@color/lightgrey"
+        android:textColorHint="@color/lightgrey"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.571"
-        app:layout_constraintStart_toEndOf="@+id/buttonSelectTime"
         app:layout_constraintTop_toBottomOf="@+id/textViewDate" />
 
     <Button
@@ -130,8 +134,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="108dp"
-        android:backgroundTint="@android:color/holo_blue_light"
+        android:backgroundTint="@color/lightgrey"
         android:text="Ajouter l'évènement"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonColor"

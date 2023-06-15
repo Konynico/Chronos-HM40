@@ -33,6 +33,9 @@ public class CalendarActivity extends AppCompatActivity {
     private ListView lvEvents2;
     private File eventFile;
 
+    private boolean isDarkModeOn;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,10 +44,13 @@ public class CalendarActivity extends AppCompatActivity {
         boolean theme = intent.getBooleanExtra("theme", false);
 
 
-        if (theme == true){
-            setContentView(R.layout.dark_activity_calendar);}
-        else{
-            setContentView(R.layout.activity_calendar);}
+        if (theme == true) {
+            setContentView(R.layout.dark_activity_calendar);
+            isDarkModeOn = true;
+        }else{
+            setContentView(R.layout.activity_calendar);
+            isDarkModeOn = false;
+        }
 
         lvEvents2 = findViewById(R.id.lvEvents2);
         events = MainActivity.getEvents();
@@ -88,7 +94,7 @@ public class CalendarActivity extends AppCompatActivity {
         }
 
         // Définir l'adaptateur sur lvEvents
-        eventsAdapter = new ArrayAdapter<String>(this, R.layout.data_form_event, R.id.textViewTitle, threeEvents) {
+        eventsAdapter = new ArrayAdapter<String>(this, R.layout.data_form_event_date, R.id.textViewTitle, threeEvents) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
@@ -99,15 +105,29 @@ public class CalendarActivity extends AppCompatActivity {
                 TextView textViewTitle = view.findViewById(R.id.textViewTitle);
                 TextView textViewDescription = view.findViewById(R.id.textViewDescription);
                 TextView textViewTime = view.findViewById(R.id.textViewTime);
+                TextView textViewDate = view.findViewById(R.id.textViewDate);
 
                 textViewTitle.setText(parts[1]);
+                textViewDate.setText(parts[0]);
                 textViewDescription.setText(parts[2]);
                 textViewTime.setText(parts[4]);
+
+                if(textViewDescription.getText().toString().equals("Description"))
+                {
+                    textViewDescription.setText("");
+                }
+
+
+                if(textViewTime.getText().toString().equals("HH:MM"))
+                {
+                    textViewTime.setText("");
+                }
 
                 int color = Integer.parseInt(parts[3]);
                 textViewTitle.setTextColor(color);
                 textViewDescription.setTextColor(color);
                 textViewTime.setTextColor(color);
+                textViewDate.setTextColor(color);
 
                 return view;
             }
@@ -145,8 +165,10 @@ public class CalendarActivity extends AppCompatActivity {
 
     private void readEvents() {
         events.clear(); // Vide la liste events avant de lire les événements
-
+        File directory = getExternalFilesDir(null);
+        eventFile = new File(directory, "events.csv");
         try {
+
             FileReader fileReader = new FileReader(eventFile);
             CSVReader csvReader = new CSVReader(fileReader);
             List<String[]> csvData = csvReader.readAll();
@@ -166,6 +188,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     public  void onChronoClick(View view){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
         finish();
     }

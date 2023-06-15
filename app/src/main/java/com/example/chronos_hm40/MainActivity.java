@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         Intent intent = getIntent();
         boolean theme = intent.getBooleanExtra("theme", false);
         if (theme == true) {
@@ -36,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
             isDarkModeOn = false;
         }
-        eventFile = new File(getFilesDir(), "event.csv");
+        //eventFile = new File(getFilesDir(), "event.csv");
+        File directory = getExternalFilesDir(null);
+        eventFile = new File(directory, "events.csv");
         events = new ArrayList<>();
     }
 
@@ -49,12 +51,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, TodoList.class);
         intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
-
     }
-
 
     public void onEDTClick(View view) {
         Intent intent = new Intent(this, CalendarActivity.class);
+        intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
     }
 
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
     public void onAddEventClick(View view)
     {
         Intent intent = new Intent(this, AddEventActivity.class);
+        intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
     }
 

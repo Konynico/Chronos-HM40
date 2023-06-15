@@ -8,6 +8,9 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -44,6 +47,8 @@ public class AddEventActivity extends AppCompatActivity {
 
     private ArrayList<String> events;
 
+    private boolean isDarkModeOn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,15 +56,24 @@ public class AddEventActivity extends AppCompatActivity {
         Intent intent = getIntent();
         boolean theme = intent.getBooleanExtra("theme", false);
 
-        if (theme == true){
-            setContentView(R.layout.dark_activity_delete_course);}
-        else{
-            setContentView(R.layout.activity_delete_course);}
+        if (theme == true) {
+            setContentView(R.layout.dark_activity_add_event);
+            isDarkModeOn = true;
+        }else{
+            setContentView(R.layout.activity_add_event);
+            isDarkModeOn = false;
+        }
 
         Button buttonSelectDate = findViewById(R.id.buttonSelectDate);
         Button buttonSelectTime = findViewById(R.id.buttonSelectTime);
         TextView textViewDate = findViewById(R.id.textViewDate);
         TextView textViewTime = findViewById(R.id.textViewTime);
+
+        EditText editTextTitle = findViewById(R.id.editTextTitle);
+        EditText editTextDescription = findViewById(R.id.editTextDescription);
+
+        addButton = findViewById(R.id.addButton);
+        addButton.setEnabled(false);
 
         eventFile = MainActivity.getFile();
         events = MainActivity.getEvents();
@@ -136,6 +150,7 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
+
         mDefaultColor = ContextCompat.getColor(AddEventActivity.this, R.color.colorPrimary);
         mButton = findViewById(R.id.buttonColor);
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +159,79 @@ public class AddEventActivity extends AppCompatActivity {
                 openColorPicker();
             }
         });
-        addButton = findViewById(R.id.addButton);
+
+        textViewDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Pas besoin de cette méthode pour notre cas
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Appeler la méthode de vérification
+                checkFieldsNotEmpty();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsNotEmpty();
+            }
+        });
+
+        textViewTime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Pas besoin de cette méthode pour notre cas
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Appeler la méthode de vérification
+                checkFieldsNotEmpty();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsNotEmpty();
+            }
+        });
+
+        editTextDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Pas besoin de cette méthode pour notre cas
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Appeler la méthode de vérification
+                checkFieldsNotEmpty();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsNotEmpty();
+            }
+        });
+
+        editTextTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Pas besoin de cette méthode pour notre cas
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Appeler la méthode de vérification
+                checkFieldsNotEmpty();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                checkFieldsNotEmpty();
+            }
+        });
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,12 +261,21 @@ public class AddEventActivity extends AppCompatActivity {
         TextView textViewDate = findViewById(R.id.textViewDate);
         TextView textViewTime = findViewById(R.id.textViewTime);
 
+        if(editTextDescription.getText().toString().equals(""))
+        {
+            editTextDescription.setText("Description");
+        }
+
+        if(textViewTime.getText().toString().equals(""))
+        {
+            textViewTime.setText("HH:MM");
+        }
+
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
         int color = mDefaultColor;
         String date = textViewDate.getText().toString();
         String time = textViewTime.getText().toString();
-
 
         // Créer un SpannableString avec la couleur sélectionnée
         String newEvent = date + "\n" + title + "\n" + description + "\n" + color + "\n" + time;
@@ -198,6 +294,8 @@ public class AddEventActivity extends AppCompatActivity {
     }
 
     private void writeEvents() {
+        File directory = getExternalFilesDir(null);
+        eventFile = new File(directory, "events.csv");
         try {
             FileWriter fileWriter = new FileWriter(eventFile);
             CSVWriter csvWriter = new CSVWriter(fileWriter);
@@ -213,6 +311,15 @@ public class AddEventActivity extends AppCompatActivity {
         }
     }
 
+    private void checkFieldsNotEmpty() {
+        addButton = findViewById(R.id.addButton);
+        EditText editTextField1 = findViewById(R.id.editTextTitle);
+        TextView editTextField3 = findViewById(R.id.textViewDate);
+
+        boolean fieldsNotEmpty = !TextUtils.isEmpty(editTextField3.getText()) && !TextUtils.isEmpty(editTextField1.getText());
+        addButton.setEnabled(fieldsNotEmpty);
+    }
+
     protected void onPause() {
         super.onPause();
         writeEvents();
@@ -220,6 +327,8 @@ public class AddEventActivity extends AppCompatActivity {
 
     public  void onChronoClick(View view){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
+        finish();
     }
 }
