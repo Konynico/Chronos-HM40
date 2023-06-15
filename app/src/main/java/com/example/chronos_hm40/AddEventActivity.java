@@ -52,9 +52,9 @@ public class AddEventActivity extends AppCompatActivity {
         boolean theme = intent.getBooleanExtra("theme", false);
 
         if (theme == true){
-            setContentView(R.layout.dark_activity_add_event);}
+            setContentView(R.layout.dark_activity_delete_course);}
         else{
-            setContentView(R.layout.activity_add_event);}
+            setContentView(R.layout.activity_delete_course);}
 
         Button buttonSelectDate = findViewById(R.id.buttonSelectDate);
         Button buttonSelectTime = findViewById(R.id.buttonSelectTime);

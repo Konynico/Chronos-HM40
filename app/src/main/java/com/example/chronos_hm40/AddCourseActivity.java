@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import androidx.room.Room;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.opencsv.CSVWriter;
@@ -116,6 +118,29 @@ public class AddCourseActivity extends AppCompatActivity {
                 }
             }
         });
+        editTextHourBegin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Obtenir l'heure actuelle
+                final Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
+
+                // Créer un TimePickerDialog pour sélectionner l'heure
+                TimePickerDialog timePickerDialog = new TimePickerDialog(AddCourseActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                // Mettre à jour le texte de l'éditeur de texte avec l'heure sélectionnée
+                                String selectedTime = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute);
+                                editTextHourBegin.setText(selectedTime);
+                            }
+                        }, hour, minute, true);
+
+                // Afficher le dialogue de sélection de l'heure
+                timePickerDialog.show();
+            }
+        });
         EditText editTextHourEnd = findViewById(R.id.editTextHourEnd);
         editTextHourEnd.addTextChangedListener(new TextWatcher() {
             @Override
@@ -136,7 +161,29 @@ public class AddCourseActivity extends AppCompatActivity {
                 }
             }
         });
+        editTextHourEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Obtenir l'heure actuelle
+                final Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minute = calendar.get(Calendar.MINUTE);
 
+                // Créer un TimePickerDialog pour sélectionner l'heure
+                TimePickerDialog timePickerDialog = new TimePickerDialog(AddCourseActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                // Mettre à jour le texte de l'éditeur de texte avec l'heure sélectionnée
+                                String selectedTime = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute);
+                                editTextHourEnd.setText(selectedTime);
+                            }
+                        }, hour, minute, true);
+
+                // Afficher le dialogue de sélection de l'heure
+                timePickerDialog.show();
+            }
+        });
         editTextDateBegin = findViewById(R.id.editTextDateBegin);
         editTextDateBegin.addTextChangedListener(new TextWatcher() {
             @Override
@@ -279,7 +326,6 @@ public class AddCourseActivity extends AppCompatActivity {
         }
         // Parsez la date de départ en objet Calendar
         Calendar startDate = parseCalendar(dateBegin);
-
         // Vérifiez si la date de départ est déjà un mercredi
         if (startDate.get(Calendar.DAY_OF_WEEK) != dayOfWeek) {
             // Recherchez le mercredi suivant à partir de la date de départ
@@ -287,7 +333,6 @@ public class AddCourseActivity extends AppCompatActivity {
                 startDate.add(Calendar.DAY_OF_WEEK, 1);
             }
         }
-
         // Formattez la nouvelle date de départ pour l'affichage
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
         String adjustedStartDate = sdf.format(startDate.getTime());

@@ -30,10 +30,10 @@ public class DeleteCourseActivity extends AppCompatActivity {
         Intent intent = getIntent();
         boolean theme = intent.getBooleanExtra("theme", false);
         if (theme == true) {
-            setContentView(R.layout.dark_activity_add_course);
+            setContentView(R.layout.dark_activity_delete_course);
             isDarkModeOn = true;
         }else{
-            setContentView(R.layout.activity_add_course);
+            setContentView(R.layout.activity_delete_course);
             isDarkModeOn = false;
         }
         try {

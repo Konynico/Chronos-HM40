@@ -118,9 +118,9 @@ public class ScheduleActivity extends AppCompatActivity {
                 Calendar currentDateWithoutTime = removeTimeFromCalendar(currentDate);
                 int daysBetween = daysBetween(courseStartDate, currentDateWithoutTime);
 
-                if(course.getFrequency().equalsIgnoreCase("Quotidienne") && currentDateWithoutTime.after(courseEndDate)) {
+                if(course.getFrequency().equalsIgnoreCase("Quotidienne") && !currentDateWithoutTime.after(courseEndDate) && currentDateWithoutTime.after(courseStartDate)) {
                     courseList.add(course);
-                }else if(course.getDay().equalsIgnoreCase(selectedDay) && !currentDateWithoutTime.after(courseEndDate)){
+                }else if(course.getDay().equalsIgnoreCase(selectedDay) && !currentDateWithoutTime.after(courseEndDate) && currentDateWithoutTime.after(courseStartDate)){
                     if(frequency.equalsIgnoreCase("Unique")){
                         courseList.add(course);
                     }else if(frequency.equalsIgnoreCase("Hebdomadaire") && daysBetween % 7 == 0){
