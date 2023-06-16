@@ -241,7 +241,7 @@ public class AddCourseActivity extends AppCompatActivity {
         editTextHourEnd.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Pas besoin de cette méthode pour notre cas
+                // Pas besoin de cette méthode pour notre cas oui
             }
 
             @Override

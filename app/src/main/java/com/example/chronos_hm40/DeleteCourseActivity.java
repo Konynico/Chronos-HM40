@@ -44,7 +44,7 @@ public class DeleteCourseActivity extends AppCompatActivity {
                 // Divisez la ligne CSV en valeurs individuelles
                 String[] values = line.split(",");
 
-                // Récupérez les valeurs individuelles
+                // Récupérez les valeurs individuelles du csv
                 String title = removeQuotes(values[0]);
                 String subtitle = removeQuotes(values[1]);
                 int color = Integer.parseInt(removeQuotes(values[2]));

@@ -133,6 +133,7 @@ public class ScheduleActivity extends AppCompatActivity {
                 }
 
             }
+            //liste
             Collections.sort(courseList);
             for (Course course : courseList) {
                 createColorRectangle(course);
