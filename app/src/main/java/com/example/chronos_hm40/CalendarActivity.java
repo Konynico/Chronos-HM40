@@ -157,6 +157,7 @@ public class CalendarActivity extends AppCompatActivity {
                 intent.putExtra("selectedDate", date);
                 intent.putExtra("theme", theme);
                 startActivity(intent);
+                finish();
             }
         });
     }

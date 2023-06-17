@@ -327,7 +327,11 @@ public class EditEventActivity extends AppCompatActivity {
         editTextViewDate.setText("");
         editTextViewTime.setText("");
 
-        // Fermer l'activité EditEventActivity et retourner à l'activité précédente
+        // Créer une intention pour naviguer vers l'activité MainActivity
+        Intent intent = new Intent(this, CalendarActivity.class);
+        // Démarrer l'activité MainActivity et fermer l'activité actuelle
+        startActivity(intent);
+        // Terminer l'activité actuelle
         finish();
     }
 
@@ -338,6 +342,10 @@ public class EditEventActivity extends AppCompatActivity {
         // Appeler la méthode writeEvents() pour enregistrer les modifications dans le fichier CSV
         writeEvents();
 
+        // Créer une intention pour naviguer vers l'activité MainActivity
+        Intent intent = new Intent(this, CalendarActivity.class);
+        // Démarrer l'activité MainActivity et fermer l'activité actuelle
+        startActivity(intent);
         // Terminer l'activité actuelle
         finish();
     }
