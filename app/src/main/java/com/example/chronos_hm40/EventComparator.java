@@ -23,4 +23,3 @@ public class EventComparator implements Comparator<String> {
         return heure1.compareTo(heure2);
     }
 }
-

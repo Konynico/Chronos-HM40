@@ -36,11 +36,9 @@ import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class TodoList extends AppCompatActivity {
     private ArrayList<String> items;
-
     private ArrayAdapter<String> itemsAdapter;
     private ListView lvItems;
     private File todoFile;
-
     private int selectedColor;
     private Button btnColorPicker;
 

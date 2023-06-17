@@ -36,7 +36,6 @@ public class ScheduleActivity extends AppCompatActivity {
     private TextView textViewSelectedDay;
     private Calendar currentDate = Calendar.getInstance();
     private LinearLayout squareContainer;
-
     private boolean isDarkModeOn;
 
     @Override

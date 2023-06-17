@@ -1,9 +1,7 @@
 package com.example.chronos_hm40;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -17,22 +15,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
-
+import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
-
-import java.io.BufferedReader;
+import com.opencsv.exceptions.CsvException;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
-
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class AddEventActivity extends AppCompatActivity {
@@ -40,13 +35,9 @@ public class AddEventActivity extends AppCompatActivity {
     int mDefaultColor;
     Button mButton;
     Button addButton;
-
     private File eventFile;
-
     private ArrayAdapter<String> eventsAdapter;
-
     private ArrayList<String> events;
-
     private boolean isDarkModeOn;
 
     @Override
@@ -64,36 +55,44 @@ public class AddEventActivity extends AppCompatActivity {
             isDarkModeOn = false;
         }
 
+        // Récupérer les références des vues
         Button buttonSelectDate = findViewById(R.id.buttonSelectDate);
         Button buttonSelectTime = findViewById(R.id.buttonSelectTime);
         TextView textViewDate = findViewById(R.id.textViewDate);
         TextView textViewTime = findViewById(R.id.textViewTime);
-
         EditText editTextTitle = findViewById(R.id.editTextTitle);
         EditText editTextDescription = findViewById(R.id.editTextDescription);
-
         addButton = findViewById(R.id.addButton);
         addButton.setEnabled(false);
 
-        eventFile = MainActivity.getFile();
-        events = MainActivity.getEvents();
+        // Initialiser les variables
+        events = new ArrayList<>();
 
+        // Lire les événements à partir du fichier CSV
+        readEvents();
+
+        // Créer l'adaptateur pour la liste d'événements
         eventsAdapter = new ArrayAdapter<String>(this, R.layout.data_form_event, R.id.textViewTitle) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
+                // Personnaliser l'apparence de chaque élément de la liste
                 View view = super.getView(position, convertView, parent);
 
+                // Récupérer les éléments de l'événement à la position spécifiée
                 String event = events.get(position);
                 String[] parts = event.split("\n");
 
+                // Récupérer les références des vues dans l'élément de la liste
                 TextView textViewTitle = view.findViewById(R.id.textViewTitle);
                 TextView textViewDescription = view.findViewById(R.id.textViewDescription);
                 TextView textViewTime = view.findViewById(R.id.textViewTime);
 
+                // Mettre à jour les valeurs des vues avec les données de l'événement
                 textViewTitle.setText(parts[1]);
                 textViewDescription.setText(parts[2]);
                 textViewTime.setText(parts[4]);
 
+                // Définir la couleur du texte en fonction de l'événement
                 int color = Integer.parseInt(parts[3]);
                 textViewTitle.setTextColor(color);
                 textViewDescription.setTextColor(color);
@@ -103,6 +102,7 @@ public class AddEventActivity extends AppCompatActivity {
             }
         };
 
+        // Ajouter des écouteurs d'événements aux boutons de sélection de la date et de l'heure
         buttonSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,7 +150,7 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
-
+        // Gérer la sélection de la couleur
         mDefaultColor = ContextCompat.getColor(AddEventActivity.this, R.color.colorPrimary);
         mButton = findViewById(R.id.buttonColor);
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -160,6 +160,7 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
+        // Vérifier si les champs ne sont pas vides pour activer le bouton d'ajout
         textViewDate.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -232,6 +233,7 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
+        // Ajouter un écouteur d'événement pour le bouton d'ajout
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,6 +242,7 @@ public class AddEventActivity extends AppCompatActivity {
         });
     }
 
+    // Méthode pour ouvrir le sélecteur de couleur
     public void openColorPicker() {
         AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, mDefaultColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
             @Override
@@ -255,7 +258,9 @@ public class AddEventActivity extends AppCompatActivity {
         colorPicker.show();
     }
 
+    // Méthode pour sauvegarder un événement
     private void saveEvent() {
+        // Récupérer les valeurs des champs de texte et de l'heure sélectionnée
         EditText editTextTitle = findViewById(R.id.editTextTitle);
         EditText editTextDescription = findViewById(R.id.editTextDescription);
         TextView textViewDate = findViewById(R.id.textViewDate);
@@ -277,14 +282,17 @@ public class AddEventActivity extends AppCompatActivity {
         String date = textViewDate.getText().toString();
         String time = textViewTime.getText().toString();
 
-        // Créer un SpannableString avec la couleur sélectionnée
+        // Créer une chaîne représentant le nouvel événement
         String newEvent = date + "\n" + title + "\n" + description + "\n" + color + "\n" + time;
 
+        // Ajouter l'événement à la liste et mettre à jour l'adaptateur
         events.add(0, newEvent);
         eventsAdapter.notifyDataSetChanged();
 
+        // Écrire les événements dans le fichier CSV
         writeEvents();
 
+        // Réinitialiser les champs de texte
         editTextTitle.setText("");
         editTextDescription.setText("");
         textViewDate.setText("");
@@ -293,6 +301,7 @@ public class AddEventActivity extends AppCompatActivity {
         finish();
     }
 
+    // Méthode pour écrire les événements dans un fichier CSV
     private void writeEvents() {
         File directory = getExternalFilesDir(null);
         eventFile = new File(directory, "events.csv");
@@ -311,6 +320,30 @@ public class AddEventActivity extends AppCompatActivity {
         }
     }
 
+    // Méthode pour lire les événements à partir d'un fichier CSV
+    private void readEvents() {
+        events.clear(); // Vide la liste events avant de lire les événements
+        File directory = getExternalFilesDir(null);
+        eventFile = new File(directory, "events.csv");
+        try {
+            FileReader fileReader = new FileReader(eventFile);
+            CSVReader csvReader = new CSVReader(fileReader);
+            List<String[]> csvData = csvReader.readAll();
+
+            for (String[] row : csvData) {
+                String event = row[0] + "\n" + row[1] + "\n" + row[2] + "\n" + row[3] + "\n" + row[4];
+                events.add(event);
+            }
+
+            csvReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CsvException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // Méthode pour vérifier si les champs ne sont pas vides et activer le bouton d'ajout
     private void checkFieldsNotEmpty() {
         addButton = findViewById(R.id.addButton);
         EditText editTextField1 = findViewById(R.id.editTextTitle);
@@ -320,12 +353,8 @@ public class AddEventActivity extends AppCompatActivity {
         addButton.setEnabled(fieldsNotEmpty);
     }
 
-    protected void onPause() {
-        super.onPause();
-        writeEvents();
-    }
-
-    public  void onChronoClick(View view){
+    // Méthode appelée lorsque le bouton de retour est cliqué (utilisé pour revenir à l'activité principale)
+    public void onChronoClick(View view){
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);

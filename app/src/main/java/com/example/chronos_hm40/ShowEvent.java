@@ -1,39 +1,21 @@
 package com.example.chronos_hm40;
 
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
-
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
-
-import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class ShowEvent extends AppCompatActivity {
 
@@ -41,31 +23,28 @@ public class ShowEvent extends AppCompatActivity {
     private ArrayAdapter<String> eventsAdapter;
     private ListView lvEvents;
     private File eventFile;
-
     private boolean isDarkModeOn;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //recuper un argument au lancement de l'activité
+        // Récupérer un argument au lancement de l'activité
         Intent intent = getIntent();
         boolean theme = intent.getBooleanExtra("theme", false);
 
         if (theme == true) {
             setContentView(R.layout.dark_data_event);
             isDarkModeOn = true;
-        }else{
+        } else {
             setContentView(R.layout.data_event);
             isDarkModeOn = false;
         }
 
         lvEvents = findViewById(R.id.lvEvents);
-        events = MainActivity.getEvents();
-        eventFile = MainActivity.getFile();
+        events = new ArrayList<>();
 
         readEvents();
+
         String selectedDate = getIntent().getStringExtra("selectedDate");
 
         List<String> filteredEvents = new ArrayList<>();
@@ -92,13 +71,11 @@ public class ShowEvent extends AppCompatActivity {
                 textViewDescription.setText(parts[2]);
                 textViewTime.setText(parts[4]);
 
-                if(textViewDescription.getText().toString().equals("Description"))
-                {
+                if (textViewDescription.getText().toString().equals("Description")) {
                     textViewDescription.setText("");
                 }
 
-                if(textViewTime.getText().toString().equals("HH:MM"))
-                {
+                if (textViewTime.getText().toString().equals("HH:MM")) {
                     textViewTime.setText("");
                 }
 
@@ -112,14 +89,13 @@ public class ShowEvent extends AppCompatActivity {
         };
         lvEvents.setAdapter(eventsAdapter);
 
-
         lvEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Récupérer l'événement sélectionné
                 String selectedEvent = filteredEvents.get(position);
 
-                // Créer une nouvelle intention pour lancer l'activité EventDetailsActivity
+                // Créer une nouvelle intention pour lancer l'activité EditEventActivity
                 Intent intent = new Intent(ShowEvent.this, EditEventActivity.class);
                 intent.putExtra("selectedEvent", selectedEvent); // Vous pouvez passer des données supplémentaires à l'activité si nécessaire
                 intent.putExtra("theme", theme);
@@ -129,9 +105,8 @@ public class ShowEvent extends AppCompatActivity {
         });
     }
 
-
     private void readEvents() {
-        events.clear(); // Vide la liste events avant de lire les événements
+        events.clear(); // Vider la liste events avant de lire les événements
         File directory = getExternalFilesDir(null);
         eventFile = new File(directory, "events.csv");
         try {
@@ -152,8 +127,7 @@ public class ShowEvent extends AppCompatActivity {
         }
     }
 
-
-    public  void onChronoClick(View view){
+    public void onChronoClick(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("theme", isDarkModeOn);
         startActivity(intent);
