@@ -110,6 +110,7 @@ public class TodoList extends AppCompatActivity {
                 EditText etEditItem = dialogView.findViewById(R.id.etEditItem);
                 EditText etEditDate = dialogView.findViewById(R.id.etEditDate);
 
+                Button btnColor = dialogView.findViewById(R.id.buttonColor2);
                 Button btnDelete = dialogView.findViewById(R.id.btnDelete);
                 Button btnCancel = dialogView.findViewById(R.id.btnCancel);
                 Button btnSave = dialogView.findViewById(R.id.btnSave);
@@ -158,6 +159,13 @@ public class TodoList extends AppCompatActivity {
                     }
                 });
 
+                btnColor.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        openColorPicker2(btnColor);
+                    }
+                                            });
+
                 btnSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -165,7 +173,7 @@ public class TodoList extends AppCompatActivity {
                         String editedDate = etEditDate.getText().toString();
 
                         if (isValidDate(editedDate)) {
-                            editedItem += "\n" + editedDate + "\n" + currentColor;
+                            editedItem += "\n" + editedDate + "\n" + selectedColor;
                             editItem(position, editedItem);
                             dialog.dismiss();
                         } else {
@@ -304,6 +312,21 @@ public class TodoList extends AppCompatActivity {
             public void onOk(AmbilWarnaDialog dialog, int color) {
                 selectedColor = color;
                 btnColorPicker.setBackgroundColor(selectedColor);
+            }
+        });
+        colorPicker.show();
+    }
+
+    public void openColorPicker2(Button btnColor) {
+        AmbilWarnaDialog colorPicker = new AmbilWarnaDialog(this, selectedColor, new AmbilWarnaDialog.OnAmbilWarnaListener() {
+            @Override
+            public void onCancel(AmbilWarnaDialog dialog) {
+            }
+
+            @Override
+            public void onOk(AmbilWarnaDialog dialog, int color) {
+                selectedColor = color;
+                btnColor.setBackgroundColor(selectedColor);
             }
         });
         colorPicker.show();

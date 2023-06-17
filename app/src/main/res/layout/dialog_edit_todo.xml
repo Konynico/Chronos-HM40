@@ -16,12 +16,20 @@
     <EditText
         android:id="@+id/etEditDate"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Date (jj/mm/aaaa)"
-        android:autoSizeMinTextSize="12sp"
+        android:layout_height="55dp"
         android:autoSizeMaxTextSize="48sp"
+        android:autoSizeMinTextSize="12sp"
         android:autoSizeStepGranularity="2sp"
-        android:autoSizeTextType="uniform" />
+        android:autoSizeTextType="uniform"
+        android:hint="Date (jj/mm/aaaa)" />
+
+    <Button
+        android:id="@+id/buttonColor2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:onClick="onClick"
+        android:text="Couleur du todo" />
 
     <LinearLayout
         android:layout_width="match_parent"

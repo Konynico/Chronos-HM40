@@ -14,6 +14,7 @@
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"
         android:textColor="@color/lightgrey"
+        android:textColorHint="@color/lightgrey"
         />
 
     <EditText
@@ -25,7 +26,18 @@
         android:autoSizeMaxTextSize="48sp"
         android:autoSizeStepGranularity="2sp"
         android:autoSizeTextType="uniform"
+        android:textColorHint="@color/lightgrey"
         android:textColor="@color/lightgrey"/>
+
+    <Button
+        android:id="@+id/buttonColor2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:backgroundTint="@color/lightgrey"
+        android:onClick="onClick"
+        android:text="Couleur du todo"
+        android:textColor="@color/black" />
 
     <LinearLayout
         android:layout_width="match_parent"
