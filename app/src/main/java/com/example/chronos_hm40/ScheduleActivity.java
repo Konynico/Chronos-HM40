@@ -119,7 +119,9 @@ public class ScheduleActivity extends AppCompatActivity {
 
                 if(course.getFrequency().equalsIgnoreCase("Quotidienne") && !currentDateWithoutTime.after(courseEndDate) && currentDateWithoutTime.after(courseStartDate)) {
                     courseList.add(course);
-                }else if(course.getDay().equalsIgnoreCase(selectedDay) && !currentDateWithoutTime.after(courseEndDate) && currentDateWithoutTime.after(courseStartDate)){
+                }else if(frequency.equalsIgnoreCase("Quotidienne") && course.getDay().equalsIgnoreCase(selectedDay) && !currentDateWithoutTime.after(courseEndDate)){
+                    courseList.add(course);
+                } else if(course.getDay().equalsIgnoreCase(selectedDay) && !currentDateWithoutTime.after(courseEndDate) && currentDateWithoutTime.after(courseStartDate)){
                     if(frequency.equalsIgnoreCase("Unique")){
                         courseList.add(course);
                     }else if(frequency.equalsIgnoreCase("Hebdomadaire") && daysBetween % 7 == 0){
