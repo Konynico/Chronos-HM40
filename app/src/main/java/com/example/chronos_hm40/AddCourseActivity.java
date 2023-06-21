@@ -271,81 +271,82 @@ public class AddCourseActivity extends AppCompatActivity {
     }
 
     private void saveCourse() {
-        EditText editTextTitle = findViewById(R.id.editTextTitle);
-        EditText editTextSubtitle = findViewById(R.id.editTextSubtitle);
-        EditText editTextHourBegin = findViewById(R.id.editTextHourBegin);
-        EditText editTextHourEnd = findViewById(R.id.editTextHourEnd);
-        EditText editTextDateBegin = findViewById(R.id.editTextDateBegin);
-        EditText editTextDateEnd = findViewById(R.id.editTextDateEnd);
+        if (!checkFieldsNotEmpty()) {
+            Toast.makeText(AddCourseActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
+        } else {
+            EditText editTextTitle = findViewById(R.id.editTextTitle);
+            EditText editTextSubtitle = findViewById(R.id.editTextSubtitle);
+            EditText editTextHourBegin = findViewById(R.id.editTextHourBegin);
+            EditText editTextHourEnd = findViewById(R.id.editTextHourEnd);
+            EditText editTextDateBegin = findViewById(R.id.editTextDateBegin);
+            EditText editTextDateEnd = findViewById(R.id.editTextDateEnd);
 
-        String title = editTextTitle.getText().toString();
-        String subtitle = editTextSubtitle.getText().toString();
-        int color = mDefaultColor;
-        String frequency = spinnerFrequency.getSelectedItem().toString();
-        String day = spinnerDay.getSelectedItem().toString();
-        String hourBegin = editTextHourBegin.getText().toString();
-        String hourEnd = editTextHourEnd.getText().toString();
-        String dateBegin = editTextDateBegin.getText().toString();
-        String dateEnd = editTextDateEnd.getText().toString();
+            String title = editTextTitle.getText().toString();
+            String subtitle = editTextSubtitle.getText().toString();
+            int color = mDefaultColor;
+            String frequency = spinnerFrequency.getSelectedItem().toString();
+            String day = spinnerDay.getSelectedItem().toString();
+            String hourBegin = editTextHourBegin.getText().toString();
+            String hourEnd = editTextHourEnd.getText().toString();
+            String dateBegin = editTextDateBegin.getText().toString();
+            String dateEnd = editTextDateEnd.getText().toString();
 
-        // Récupérez la date de départ sélectionnée par l'utilisateur
-        int dayOfWeek;
+            // Récupérez la date de départ sélectionnée par l'utilisateur
+            int dayOfWeek;
 
-        switch (day) {
-            case "Lundi":
-                dayOfWeek = Calendar.MONDAY;
-                break;
-            case "Mardi":
-                dayOfWeek = Calendar.TUESDAY;
-                break;
-            case "Mercredi":
-                dayOfWeek = Calendar.WEDNESDAY;
-                break;
-            case "Jeudi":
-                dayOfWeek = Calendar.THURSDAY;
-                break;
-            case "Vendredi":
-                dayOfWeek = Calendar.FRIDAY;
-                break;
-            case "Samedi":
-                dayOfWeek = Calendar.SATURDAY;
-                break;
-            case "Dimanche":
-                dayOfWeek = Calendar.SUNDAY;
-                break;
-            default:
-                // Cas où le jour choisi n'est pas valide, vous pouvez gérer cela en conséquence
-                // Par exemple, afficher un message d'erreur ou prendre une action par défaut.
-                return;
-        }
-        // Parsez la date de départ en objet Calendar
-        Calendar startDate = parseCalendar(dateBegin);
-        // Vérifiez si la date de départ est déjà un mercredi
-        if (startDate.get(Calendar.DAY_OF_WEEK) != dayOfWeek) {
-            // Recherchez le mercredi suivant à partir de la date de départ
-            while (startDate.get(Calendar.DAY_OF_WEEK) != dayOfWeek) {
-                startDate.add(Calendar.DAY_OF_WEEK, 1);
+            switch (day) {
+                case "Lundi":
+                    dayOfWeek = Calendar.MONDAY;
+                    break;
+                case "Mardi":
+                    dayOfWeek = Calendar.TUESDAY;
+                    break;
+                case "Mercredi":
+                    dayOfWeek = Calendar.WEDNESDAY;
+                    break;
+                case "Jeudi":
+                    dayOfWeek = Calendar.THURSDAY;
+                    break;
+                case "Vendredi":
+                    dayOfWeek = Calendar.FRIDAY;
+                    break;
+                case "Samedi":
+                    dayOfWeek = Calendar.SATURDAY;
+                    break;
+                case "Dimanche":
+                    dayOfWeek = Calendar.SUNDAY;
+                    break;
+                default:
+                    // Cas où le jour choisi n'est pas valide, vous pouvez gérer cela en conséquence
+                    // Par exemple, afficher un message d'erreur ou prendre une action par défaut.
+                    return;
+            }
+            // Parsez la date de départ en objet Calendar
+            Calendar startDate = parseCalendar(dateBegin);
+            // Vérifiez si la date de départ est déjà un mercredi
+            if (startDate.get(Calendar.DAY_OF_WEEK) != dayOfWeek) {
+                // Recherchez le mercredi suivant à partir de la date de départ
+                while (startDate.get(Calendar.DAY_OF_WEEK) != dayOfWeek) {
+                    startDate.add(Calendar.DAY_OF_WEEK, 1);
+                }
+            }
+            // Formattez la nouvelle date de départ pour l'affichage
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
+            String adjustedStartDate = sdf.format(startDate.getTime());
+
+            // Affichez la nouvelle date de départ
+            dateBegin = removeQuotes(adjustedStartDate);
+
+            // Créez une instance de la classe Course avec les données du formulaire
+            Course course = new Course(title, subtitle, color, day, frequency, hourBegin, hourEnd, dateBegin, dateEnd);
+            if (!checkExistence(course)) {
+                Toast.makeText(AddCourseActivity.this, "Plage horaire déjà existante sur ce créneau", Toast.LENGTH_SHORT).show();
+            } else {
+                writeCourseToCSV(course);
+                finish();
             }
         }
-        // Formattez la nouvelle date de départ pour l'affichage
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
-        String adjustedStartDate = sdf.format(startDate.getTime());
-
-        // Affichez la nouvelle date de départ
-        dateBegin = removeQuotes(adjustedStartDate);
-
-        // Créez une instance de la classe Course avec les données du formulaire
-        Course course = new Course(title, subtitle, color, day, frequency, hourBegin, hourEnd, dateBegin, dateEnd);
-        if(!checkFieldsNotEmpty()){
-            Toast.makeText(AddCourseActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
-        }else if(!checkExistence(course)){
-            Toast.makeText(AddCourseActivity.this, "Plage horaire déjà existante sur ce créneau", Toast.LENGTH_SHORT).show();
-        }else{
-            writeCourseToCSV(course);
-            finish();
-        }
     }
-
 
     private void writeCourseToCSV(Course course) {
         String[] data = {course.getTitle(), course.getSubTitle(), String.valueOf(course.getColor()), course.getDay(), course.getFrequency(), course.getHourBegin(), course.getHourEnd(), course.getDateBegin(), course.getDateEnd() }; // Remplacez ... par les autres attributs de la classe Course
@@ -439,12 +440,14 @@ public class AddCourseActivity extends AppCompatActivity {
 
     private boolean checkFieldsNotEmpty() {
         validateButton = findViewById(R.id.buttonAddCourse);
+        EditText editTextTitle = findViewById(R.id.editTextTitle);
+        EditText editTextSubTitle = findViewById(R.id.editTextSubtitle);
         EditText editTextField1 = findViewById(R.id.editTextDateBegin);
         EditText editTextField2 = findViewById(R.id.editTextDateEnd);
         EditText editTextField3 = findViewById(R.id.editTextHourBegin);
         EditText editTextField4 = findViewById(R.id.editTextHourEnd);
 
-        boolean fieldsNotEmpty = !TextUtils.isEmpty(editTextField4.getText()) && !TextUtils.isEmpty(editTextField3.getText()) && !TextUtils.isEmpty(editTextField1.getText()) && !TextUtils.isEmpty(editTextField2.getText());
+        boolean fieldsNotEmpty =!TextUtils.isEmpty(editTextSubTitle.getText()) && !TextUtils.isEmpty(editTextTitle.getText()) && !TextUtils.isEmpty(editTextField4.getText()) && !TextUtils.isEmpty(editTextField3.getText()) && !TextUtils.isEmpty(editTextField1.getText()) && !TextUtils.isEmpty(editTextField2.getText());
         return fieldsNotEmpty;
     }
     private String removeQuotes(String value) {
