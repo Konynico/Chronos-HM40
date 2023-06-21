@@ -80,7 +80,7 @@ public class AddCourseActivity extends AppCompatActivity {
         spinnerDay.setAdapter(dayAdapter);
 
         validateButton = findViewById(R.id.buttonAddCourse);
-        validateButton.setEnabled(false); // Désactiver le bouton initialement
+        //validateButton.setEnabled(false); // Désactiver le bouton initialement
 
         mLayout = findViewById(R.id.layout);
         mDefaultColor = ContextCompat.getColor(AddCourseActivity.this, R.color.colorPrimary);
@@ -194,7 +194,6 @@ public class AddCourseActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // Appeler la méthode de vérification
-                checkFieldsNotEmpty();
             }
 
             @Override
@@ -212,7 +211,6 @@ public class AddCourseActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // Appeler la méthode de vérification
-                checkFieldsNotEmpty();
             }
 
             @Override
@@ -230,12 +228,10 @@ public class AddCourseActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // Appeler la méthode de vérification
-                checkFieldsNotEmpty();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                checkFieldsNotEmpty();
             }
         });
         editTextHourEnd.addTextChangedListener(new TextWatcher() {
@@ -247,12 +243,10 @@ public class AddCourseActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // Appeler la méthode de vérification
-                checkFieldsNotEmpty();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                checkFieldsNotEmpty();
             }
         });
     }
@@ -342,7 +336,9 @@ public class AddCourseActivity extends AppCompatActivity {
 
         // Créez une instance de la classe Course avec les données du formulaire
         Course course = new Course(title, subtitle, color, day, frequency, hourBegin, hourEnd, dateBegin, dateEnd);
-        if(!checkExistence(course)){
+        if(!checkFieldsNotEmpty()){
+            Toast.makeText(AddCourseActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
+        }else if(!checkExistence(course)){
             Toast.makeText(AddCourseActivity.this, "Plage horaire déjà existante sur ce créneau", Toast.LENGTH_SHORT).show();
         }else{
             writeCourseToCSV(course);
@@ -441,7 +437,7 @@ public class AddCourseActivity extends AppCompatActivity {
         return null;
     }
 
-    private void checkFieldsNotEmpty() {
+    private boolean checkFieldsNotEmpty() {
         validateButton = findViewById(R.id.buttonAddCourse);
         EditText editTextField1 = findViewById(R.id.editTextDateBegin);
         EditText editTextField2 = findViewById(R.id.editTextDateEnd);
@@ -449,7 +445,7 @@ public class AddCourseActivity extends AppCompatActivity {
         EditText editTextField4 = findViewById(R.id.editTextHourEnd);
 
         boolean fieldsNotEmpty = !TextUtils.isEmpty(editTextField4.getText()) && !TextUtils.isEmpty(editTextField3.getText()) && !TextUtils.isEmpty(editTextField1.getText()) && !TextUtils.isEmpty(editTextField2.getText());
-        validateButton.setEnabled(fieldsNotEmpty);
+        return fieldsNotEmpty;
     }
     private String removeQuotes(String value) {
         if (value.startsWith("\"") && value.endsWith("\"")) {
@@ -558,7 +554,7 @@ public class AddCourseActivity extends AppCompatActivity {
 
             if(startTime1.before(endTime2) && startTime1.after(startTime2) && endTime1.after(endTime2)){
                 return true;
-            }else if(startTime1.before(startTime2) && endTime1.after(startTime1) && endTime1.before(endTime2)){
+            }else if(startTime1.before(startTime2) && endTime1.after(startTime2) && endTime1.before(endTime2)){
                 return true;
             }else if (startTime1.before(startTime2) && endTime1.after(endTime2)) {
                 return true;
