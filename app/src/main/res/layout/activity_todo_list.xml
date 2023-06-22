@@ -42,7 +42,8 @@
         app:layout_constraintBottom_toTopOf="@+id/layout_add_item"
         app:layout_constraintTop_toBottomOf="@+id/blueView"
         app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="-5dp" />
+        tools:layout_editor_absoluteX="-5dp"
+        tools:ignore="MissingConstraints" />
 
     <LinearLayout
         android:id="@+id/layout_add_item"
@@ -101,7 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onAddItem"
-            android:text="Add ToDo" />
+            android:text="Ajouter un Todo" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

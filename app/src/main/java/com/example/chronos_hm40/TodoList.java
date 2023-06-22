@@ -143,7 +143,7 @@ public class TodoList extends AppCompatActivity {
                         deleteConfirmBuilder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                // Ne faites rien ici - fermez simplement le popup
+                               // ferme simplement le popup
                             }
                         });
 
@@ -214,7 +214,6 @@ public class TodoList extends AppCompatActivity {
         String dateText = etNewDate.getText().toString();
 
         if (!itemText.isEmpty() && isValidDate(dateText)) {
-            // Créer un SpannableString avec la couleur sélectionnée
             String newItem = itemText + "\n" + dateText + "\n" + selectedColor;
 
             items.add(0, newItem);
