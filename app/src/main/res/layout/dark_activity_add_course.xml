@@ -146,14 +146,13 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@android:color/holo_blue_bright"
-        android:hint="Couleur du cours"
+        android:hint="Couleur de la plage horaire"
         android:onClick="onAddCourseClick"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextDateEnd" />
 
@@ -162,7 +161,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="Ajouter le cours"
+        android:text="Ajouter la plage horaire"
         android:backgroundTint="@color/lightgrey"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
