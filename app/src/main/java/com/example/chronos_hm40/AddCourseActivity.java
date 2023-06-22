@@ -83,7 +83,7 @@ public class AddCourseActivity extends AppCompatActivity {
         //validateButton.setEnabled(false); // Désactiver le bouton initialement
 
         mLayout = findViewById(R.id.layout);
-        mDefaultColor = ContextCompat.getColor(AddCourseActivity.this, R.color.colorPrimary);
+        mDefaultColor = ContextCompat.getColor(AddCourseActivity.this, R.color.lightblue);
         mButton = findViewById(R.id.button);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
